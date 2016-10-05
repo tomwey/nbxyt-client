@@ -58,8 +58,18 @@ angular.module('xiaoyoutong.controllers', [])
 })
 
 // 俱乐部列表页面
-.controller('ClubsCtrl', function($scope) {
+.controller('ClubsCtrl', function($scope, clubsService) {
+  $scope.clubs = clubsService.getClubs();
+})
 
+// 俱乐部详情页
+.controller('ClubDetailCtrl', function($scope, clubsService, $stateParams) {
+  $scope.club = clubsService.getClub(parseInt($stateParams.id));
+
+  // 加入俱乐部
+  $scope.doJoinClub = function(id) {
+    alert(id);
+  };
 })
 
 // 实习基地列表页面

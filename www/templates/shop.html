@@ -1,7 +1,7 @@
 <ion-view view-title="产品智联">
   <ion-content>
     <ion-list>
-    	<ion-item class="item-remove-animate item item-thumbnail-left item-icon-right" ng-repeat="product in products" type="item-text-wrap" href="#/tab/products/{{product.sku}}">
+    	<ion-item class="item-remove-animate item item-thumbnail-left item-icon-right item-text-wrap" ng-repeat="product in products" href="#/tab/products/{{product.sku}}">
         		<img ng-src="{{product.image}}">
         		<h2>{{product.title}}</h2>
         		<p>{{product.intro}}</p>

@@ -1,0 +1,57 @@
+<ion-view view-title="{{club.name}}" hide-tabs>
+	<ion-content>
+		<div class="list">
+			<div class="item item-image">
+				<img ng-src="{{club.image}}">
+			</div>
+			<div class="item" style="text-align: center;">
+				<h2>{{club.name}}</h2>
+				<p>创建时间：{{club.created_at}}&nbsp;&nbsp;成员：{{club.users_count}}</p>
+			</div>
+			<div class="item item-divider"></div>
+			<div class="item item-text-wrap">
+				<h2>简介</h2>
+				<p>{{club.intro}}</p>
+			</div>
+			<div class="item item-divider"></div>
+			<a href="" class="item item-icon-right">
+				俱乐部章程
+				<i class="icon ion-chevron-right icon-accessory"></i>
+			</a>
+			<div class="item item-divider"></div>
+		</div>
+		
+		<!-- 俱乐部活动 -->
+		<div class="card">
+			<div class="item item-divider"><h2>活动</h2></div>
+			<ion-item class="item-remove-animate item item-thumbnail-left item-icon-right item-text-wrap" ng-repeat="event in club.events" 
+				href="#/tab/events/{{event.id}}">
+				<img ng-src="{{event.image}}">
+    			<h2>{{event.name}}<span class="badge badge-assertive">{{event.state}}</span></h2>
+    			<p>活动时间：{{event.time}}</p>
+    			<p>参加人数：{{event.joined_count}} / {{event.needed_count}}</p>
+    			<i class="icon ion-chevron-right icon-accessory"></i>
+			</ion-item>
+			<a class="item item-divider">查看全部活动</a>
+		</div>
+		<div class="list">
+			<div class="item-divider item"></div>
+		</div>
+		<!-- 俱乐部成员 -->
+		<div class="card">
+			<div class="item item-divider">俱乐部成员</div>
+			<ion-item class="item-remove-animate item-avatar item-icon-right item-button-right" ng-repeat="obj in club.users" href="">
+        		<img ng-src="{{obj.avatar}}">
+        		<h2>{{obj.nickname}}</h2>
+        		<p>{{obj.specialty}}&nbsp;&nbsp;{{obj.graduation}}</p>
+        		<button class="button button-positive button-outline" style="font-size: 14px;">私信</button>
+      		</ion-item>
+			<a class="item item-divider">查看全部成员</a>
+		</div>
+	</ion-content>
+	<ion-footer-bar class="bar-assertive">
+    	<div class="title" style="text-align: center; margin: 0 -10px; cursor: pointer;" ng-click="doJoinClub(club.id);">
+      		加入俱乐部
+    	</div>
+	</ion-footer-bar>
+</ion-view>

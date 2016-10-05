@@ -166,6 +166,93 @@ angular.module('xiaoyoutong.services', [])
   };
 })
 
+.service('clubsService', function() {
+  var clubs = [{
+    id: 1,
+    image: 'img/ben.png',
+    name: '羽毛球俱乐部',
+    intro: '健康生活，我快乐',
+    users_count: 100,
+    events: [{
+      id: 1,
+      name: '打羽毛球活动',
+      image: 'img/mike.png',
+      state: '预告',
+      time: '2016-10-11 09:19',
+      joined_count: 10,
+      needed_count: 50
+    }, {
+      id: 2,
+      name: '某某老师做报告活动',
+      image: 'img/ben.png',
+      state: '预告',
+      time: '2016-10-11 09:19',
+      joined_count: 10,
+      needed_count: 50
+    }],
+    users: [{
+      id: 1,
+      avatar: 'img/mike.png',
+      nickname: '昵称',
+      specialty: '工业工程',
+      graduation: '2006级',
+    },{
+      id: 2,
+      avatar: 'img/ben.png',
+      nickname: '昵称',
+      specialty: '计算机专业',
+      graduation: '2009级',
+    }]
+  },
+  {
+    id: 2,
+    image: 'img/mike.png',
+    name: '健身俱乐部',
+    intro: '我运动我快乐，真的很不错，不信来试试!',
+    users_count: 42,
+    events: [{
+      id: 1,
+      name: '打羽毛球活动',
+      image: 'img/mike.png',
+      state: '预告',
+      time: '2016-10-11 09:19',
+      joined_count: 10,
+      needed_count: 50
+    }, {
+      id: 2,
+      name: '某某老师做报告活动',
+      image: 'img/ben.png',
+      state: '预告',
+      time: '2016-10-11 09:19',
+      joined_count: 10,
+      needed_count: 50
+    }],
+    users: [{
+        id: 1,
+        avatar: 'img/mike.png',
+        nickname: '昵称',
+        specialty: '工业工程',
+        graduation: '2006级',
+      },{
+        id: 2,
+        avatar: 'img/ben.png',
+        nickname: '昵称',
+        specialty: '计算机专业',
+        graduation: '2009级',
+      }]
+  },];
+  this.getClubs = function() {
+    return clubs;
+  };
+  this.getClub = function(id) {
+    for (var i = 0; i < clubs.length; i++) {
+      if (clubs[i].id == id)
+        return clubs[i];
+    }
+    return null;
+  };
+})
+
 .factory('sectionFactory', function() {
   var sections = [{
     id: 1,
