@@ -158,6 +158,28 @@ angular.module('xiaoyoutong', ['ionic', 'xiaoyoutong.controllers', 'xiaoyoutong.
     }
   })
 
+  // 活动列表
+  .state('tab.events', {
+    url: '/events',
+    views: {
+      'tab-home': {
+        templateUrl: 'templates/events.html',
+        controller: 'EventsCtrl',
+      }
+    }
+  })
+
+  // 活动详情
+  .state('tab.eventdetail', {
+    url: '/events/:id',
+    views: {
+      'tab-home': {
+        templateUrl: 'templates/event-detail.html',
+        controller: 'EventDetailCtrl',
+      }
+    }
+  })
+
   // 实习基地
   .state('tab.companies', {
     url: '/companies',

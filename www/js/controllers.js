@@ -72,6 +72,16 @@ angular.module('xiaoyoutong.controllers', [])
   };
 })
 
+// 活动列表页
+.controller('EventsCtrl', function($scope) {
+
+})
+
+// 活动详情
+.controller('EventDetailCtrl', function($scope, $stateParams) {
+  
+})
+
 // 实习基地列表页面
 .controller('CompaniesCtrl', function($scope) {
 
