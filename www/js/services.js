@@ -49,6 +49,87 @@ angular.module('xiaoyoutong.services', [])
   };
 })
 
+.service('productsService', function() {
+  var products = [{
+    id: 1,
+    sku: '309372',
+    image: 'img/ben.png',
+    title: '3斤装正宗蒲江猕猴桃',
+    intro: '巴适得很，不信来试试',
+    body: '<p style="color: red;">很不错的哦，来试试！</p>',
+    price: '100',
+    market_price: '199',
+    exp_fee: 5,
+  },
+  {
+    id: 2,
+    sku: '319372',
+    image: 'img/adam.jpg',
+    title: '3斤装正宗蒲江猕猴桃',
+    intro: '巴适得很，不信来试试',
+    body: '<p style="color: red;">很不错的哦，来试试！</p>',
+    price: '100',
+    market_price: '199',
+    exp_fee: 0,
+  },
+  {
+    id: 3,
+    sku: '308372',
+    image: 'img/perry.png',
+    title: '3斤装正宗蒲江猕猴桃',
+    body: '<p style="color: red;">很不错的哦，来试试！</p>',
+    intro: '巴适得很，不信来试试',
+    price: '100',
+    market_price: '199',
+    exp_fee: 10,
+  },
+  {
+    id: 4,
+    sku: '309672',
+    image: 'img/mike.png',
+    title: '3斤装正宗蒲江猕猴桃',
+    body: '<p style="color:red;">很不错的哦，来试试！</p>',
+    intro: '巴适得很，不信来试试,巴适得很，不信来试试,巴适得很，不信来试试',
+    price: '100',
+    market_price: '199',
+    exp_fee: 0
+  }];
+  this.getProducts = function() {
+    return products;
+  };
+  this.getProduct = function(obj) {
+    for (var i = 0; i < products.length; i++) {
+      if (products[i].sku === obj.sku)
+        return products[i];
+    }
+    return null;
+  };
+})
+
+.service('ordersService', function() {
+  
+})
+
+.service('alumnusService', function() {
+  var alumnus = [{
+    id: 1,
+    avatar: 'img/mike.png',
+    nickname: '昵称',
+    specialty: '工业工程',
+    graduation: '2006级',
+  },{
+    id: 2,
+    avatar: 'img/ben.png',
+    nickname: '昵称',
+    specialty: '计算机专业',
+    graduation: '2009级',
+  }];
+
+  this.getAlumnus = function() {
+    return alumnus;
+  };
+})
+
 .service('organizationService', function() {
   var organizations = [{
     id: 1,

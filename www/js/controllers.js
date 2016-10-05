@@ -34,26 +34,27 @@ angular.module('xiaoyoutong.controllers', [])
 })
 
 // 同学录页面
-.controller('AlumnusCtrl', function($scope) {
-  var alumnus = [{
-    id: 1,
-    avatar: 'img/mike.png',
-    nickname: '昵称',
-    specialty: '工业工程',
-    graduation: '2006级',
-  },{
-    id: 2,
-    avatar: 'img/ben.png',
-    nickname: '昵称',
-    specialty: '计算机专业',
-    graduation: '2009级',
-  }];
-  $scope.alumnus = alumnus;
+.controller('AlumnusCtrl', function($scope, alumnusService) {
+  $scope.alumnus = alumnusService.getAlumnus();
 })
 
 // 产品智联页面
-.controller('ShopCtrl', function($scope) {
+.controller('ShopCtrl', function($scope, productsService, $stateParams) {
+  $scope.products = productsService.getProducts();
+  $scope.product  = productsService.getProduct({sku: $stateParams.id});
 
+  $scope.doPurchase = function(sku) {
+    alert(sku);
+  };
+})
+
+// 订单
+.controller('OrdersCtrl', function($scope, productsService, ordersService, $stateParams) {
+  $scope.product = productsService.getProduct({sku: $stateParams.id});
+
+  var order = {};
+
+  $scope.order = order;
 })
 
 // 俱乐部列表页面
@@ -96,4 +97,15 @@ angular.module('xiaoyoutong.controllers', [])
   $scope.settings = {
     enableFriends: true
   };
+})
+.directive('hideTabs', function($rootScope) {
+    return {
+        restrict: 'A',
+        link: function($scope, $el) {
+            $rootScope.hideTabs = true;
+            $scope.$on('$destroy', function() {
+                $rootScope.hideTabs = false;
+            });
+        }
+    };
 });

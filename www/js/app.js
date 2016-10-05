@@ -114,6 +114,28 @@ angular.module('xiaoyoutong', ['ionic', 'xiaoyoutong.controllers', 'xiaoyoutong.
     }
   })
 
+  // 产品详情
+  .state('tab.productdetail', {
+    url: '/products/:id',
+    views: {
+      'tab-home': {
+        templateUrl: 'templates/product-detail.html',
+        controller: 'ShopCtrl',
+      }
+    }
+  })
+
+  // 下单
+  .state('tab.neworder', {
+    url: '/neworder-:id',
+    views: {
+      'tab-home': {
+        templateUrl: 'templates/neworder.html',
+        controller: 'OrdersCtrl',
+      }
+    }
+  })
+
   // 俱乐部
   .state('tab.clubs', {
     url: '/clubs',

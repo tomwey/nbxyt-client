@@ -4,3 +4,14 @@
 	max-width: 100%;
 	width: 100%;
 }
+
+.product-price {
+	font-size: 18px;
+	color: red;
+}
+
+.product-market-price {
+	font-size: 14px;
+	color: #ccc;
+	text-decoration: line-through;
+}
