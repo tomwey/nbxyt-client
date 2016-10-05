@@ -9,6 +9,9 @@ angular.module('xiaoyoutong', ['ionic', 'xiaoyoutong.controllers', 'xiaoyoutong.
 
 .config(['$ionicConfigProvider', function($ionicConfigProvider){
   $ionicConfigProvider.tabs.position('bottom');
+
+  $ionicConfigProvider.backButton.previousTitleText(false);
+  $ionicConfigProvider.backButton.text('');
 }])
 
 .run(function($ionicPlatform) {
@@ -37,7 +40,7 @@ angular.module('xiaoyoutong', ['ionic', 'xiaoyoutong.controllers', 'xiaoyoutong.
   $stateProvider
 
   // setup an abstract state for the tabs directive
-    .state('tab', {
+  .state('tab', {
     url: '/tab',
     abstract: true,
     templateUrl: 'templates/tabs.html'
@@ -50,27 +53,118 @@ angular.module('xiaoyoutong', ['ionic', 'xiaoyoutong.controllers', 'xiaoyoutong.
     views: {
       'tab-home': {
         templateUrl: 'templates/tab-home.html',
-        controller: 'DashCtrl'
+        controller: 'HomeCtrl'
+      }
+    }
+  })
+  
+  // 校友组织列表
+  .state('tab.organizations', {
+    url: '/organizations',
+    views: {
+      'tab-home': {
+        templateUrl: 'templates/organizations.html',
+        controller: 'OrganizationsCtrl'
+      }
+    }
+    
+  })
+
+  // 校友总会详情
+  .state('tab.all-organizations', {
+    url: '/all-organizations',
+    views: {
+      'tab-home': {
+        templateUrl: 'templates/all-organizations.html',
+        controller: 'OrganizationsAllCtrl',
       }
     }
   })
 
+  // 某个校友组织详情
+  .state('tab.organizationdetail', {
+    url: '/organizations/:id',
+    views: {
+      'tab-home': {
+        templateUrl: 'templates/organization-detail.html',
+        controller: 'OrganizationDetailCtrl'
+      }
+    }
+  })
+
+  // 同学录
+  .state('tab.alumnus', {
+    url: '/alumnus',
+    views: {
+      'tab-home': {
+        templateUrl: 'templates/alumnus.html',
+        controller: 'AlumnusCtrl',
+      }
+    }
+  })
+
+  // 产品智联
+  .state('tab.shop', {
+    url: '/shop',
+    views: {
+      'tab-home': {
+        templateUrl: 'templates/shop.html',
+        controller: 'ShopCtrl',
+      }
+    }
+  })
+
+  // 俱乐部
+  .state('tab.clubs', {
+    url: '/clubs',
+    views: {
+      'tab-home': {
+        templateUrl: 'templates/clubs.html',
+        controller: 'ClubsCtrl',
+      }
+    }
+  })
+
+  // 实习基地
+  .state('tab.companies', {
+    url: '/companies',
+    views: {
+      'tab-home': {
+        templateUrl: 'templates/companies.html',
+        controller: 'CompaniesCtrl',
+      }
+    }
+  })
+
+  // 捐赠
+  .state('tab.donate', {
+    url: '/donate',
+    views: {
+      'tab-home': {
+        templateUrl: 'templates/donate.html',
+        controller: 'DonateCtrl',
+      }
+    }
+  })
+
+  // 消息
   .state('tab.messages', {
       url: '/messages',
       views: {
         'tab-messages': {
           templateUrl: 'templates/tab-messages.html',
-          controller: 'ChatsCtrl'
+          controller: 'MessagesCtrl'
         }
       }
     })
 
+  // 个人中心
   .state('tab.setting', {
     url: '/setting',
     views: {
       'tab-setting': {
         templateUrl: 'templates/tab-setting.html',
-        controller: 'AccountCtrl'
+        controller: 'SettingsCtrl'
       }
     }
   });
