@@ -73,13 +73,23 @@ angular.module('xiaoyoutong.controllers', [])
 })
 
 // 活动列表页
-.controller('EventsCtrl', function($scope) {
-
+.controller('EventsCtrl', function($scope, eventsService) {
+  $scope.events = eventsService.getEvents();
 })
 
 // 活动详情
-.controller('EventDetailCtrl', function($scope, $stateParams) {
-  
+.controller('EventDetailCtrl', function($scope, $stateParams, eventsService) {
+  $scope.event = eventsService.getEvent(parseInt($stateParams.id));
+
+  // 报名参加
+  $scope.doAttend = function(id) {
+
+  };
+})
+
+// 用户列表
+.controller('UsersCtrl', function($scope, usersService, $stateParams) {
+  $scope.users = usersService.getUsers({type: $stateParams.type});
 })
 
 // 实习基地列表页面

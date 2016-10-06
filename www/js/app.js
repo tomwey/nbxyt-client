@@ -147,6 +147,17 @@ angular.module('xiaoyoutong', ['ionic', 'xiaoyoutong.controllers', 'xiaoyoutong.
     }
   })
 
+  // 俱乐部成员列表
+  .state('tab.users', {
+    url: '/users',
+    views: {
+      'tab-home': {
+        templateUrl: 'templates/users.html',
+        controller: 'UsersCtrl',
+      }
+    }
+  })
+
   // 俱乐部详情
   .state('tab.clubdetail', {
     url: '/clubs/:id',

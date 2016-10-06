@@ -6,6 +6,25 @@
 -->
 <ion-view view-title="活动详情">
   <ion-content>
-    
+    <div class="list">
+      <div class="item item-image">
+        <img ng-src="{{event.image}}">
+      </div>
+      <div class="item">
+        <h2>{{event.name}}</h2>
+        <p>活动时间：{{event.time}}</p>
+        <p>参加人数：{{event.joined_count}} / {{event.needed_count}}</p>
+      </div>
+      <div class="item item-divider"></div>
+      <div class="item item-text-wrap">
+        <h2>活动简介</h2>
+        <p>{{event.intro}}</p>
+      </div>
+    </div>
   </ion-content>
+    <ion-footer-bar class="bar-assertive">
+      <div class="title" style="text-align: center; margin: 0 -10px; cursor: pointer;" ng-click="doAttend(event.id);">
+          报名参加
+      </div>
+  </ion-footer-bar>
 </ion-view>

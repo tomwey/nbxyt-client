@@ -253,6 +253,59 @@ angular.module('xiaoyoutong.services', [])
   };
 })
 
+.service('eventsService', function() {
+  var events = [{
+    id: 1,
+    name: '打羽毛球活动',
+    intro: '羽毛球活动，主要以锻炼身体为目的，交友为补充，每人300元',
+    image: 'img/ben.png',
+    time: '2016-10-11 09:30',
+    joined_count: 50,
+    needed_count: 80,
+  },{
+    id: 2,
+    name: '讲座活动',
+    intro: '开阔大家的视野',
+    image: 'img/mike.png',
+    time: '2016-10-11 09:30',
+    joined_count: 50,
+    needed_count: 80,
+  }];
+
+  this.getEvents = function() {
+    return events;
+  };
+
+  this.getEvent = function(id) {
+    for (var i = 0; i < events.length; i++) {
+      if (events[i].id == id)
+        return events[i];
+    }
+    return null;
+  };
+
+})
+
+.service('usersService', function() {
+  var users = [{
+      id: 1,
+      avatar: 'img/mike.png',
+      nickname: '昵称',
+      specialty: '工业工程',
+      graduation: '2006级',
+    },{
+      id: 2,
+      avatar: 'img/ben.png',
+      nickname: '昵称',
+      specialty: '计算机专业',
+      graduation: '2009级',
+    }];
+
+    this.getUsers = function(obj) {
+      return users;
+    };
+})
+
 .factory('sectionFactory', function() {
   var sections = [{
     id: 1,
