@@ -5,7 +5,16 @@
   The Friends service returns an array of friend data
 -->
 <ion-view view-title="实习基地">
-  <ion-content class="padding">
-    
-  </ion-content>
+	<ion-content>
+  		<ion-list>
+			<ion-item class="item-remove-animate item item-thumbnail-left item-icon-right item-text-wrap" ng-repeat="company in companies" href="#/tab/companies/{{company.id}}">
+    		<img ng-src="{{company.image}}">
+    		<h2>{{company.name}}</h2>
+    		<p>{{company.intro}}</p>
+    		<p>导师：{{company.user.nickname}}</p>
+    		<p>报名人数：{{company.joined_count}} / {{company.needed_count}}</p>
+    		<i class="icon ion-chevron-right icon-accessory"></i>
+  			</ion-item>
+		</ion-list>
+  	</ion-content>
 </ion-view>

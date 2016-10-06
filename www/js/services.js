@@ -136,20 +136,113 @@ angular.module('xiaoyoutong.services', [])
     name: '地质校友会',
     image: 'img/ben.png',
     users_count: 3,
-    intro: '这是简介一快点快点快点快点的快点快点快点快点'
+    intro: '这是简介一快点快点快点快点的快点快点快点快点',
+    created_at: '2016-10-11',
+    events: [{
+      id: 1,
+      name: '打羽毛球活动',
+      image: 'img/mike.png',
+      state: '预告',
+      time: '2016-10-11 09:19',
+      joined_count: 10,
+      needed_count: 50
+    }, {
+      id: 2,
+      name: '某某老师做报告活动',
+      image: 'img/ben.png',
+      state: '预告',
+      time: '2016-10-11 09:19',
+      joined_count: 10,
+      needed_count: 50
+    }],
+    users: [{
+      id: 1,
+      avatar: 'img/mike.png',
+      nickname: '昵称',
+      specialty: '工业工程',
+      graduation: '2006级',
+    },{
+      id: 2,
+      avatar: 'img/ben.png',
+      nickname: '昵称',
+      specialty: '计算机专业',
+      graduation: '2009级',
+    }]
   },
   {
     id: 2,
     name: '信工院校友会',
     image: 'img/adam.jpg',
     users_count: 5,
-    intro: '成就梦想'
+    intro: '成就梦想',
+    created_at: '2016-10-11',
+    events: [{
+      id: 1,
+      name: '打羽毛球活动',
+      image: 'img/mike.png',
+      state: '预告',
+      time: '2016-10-11 09:19',
+      joined_count: 10,
+      needed_count: 50
+    }, {
+      id: 2,
+      name: '某某老师做报告活动',
+      image: 'img/ben.png',
+      state: '预告',
+      time: '2016-10-11 09:19',
+      joined_count: 10,
+      needed_count: 50
+    }],
+    users: [{
+      id: 1,
+      avatar: 'img/mike.png',
+      nickname: '昵称',
+      specialty: '工业工程',
+      graduation: '2006级',
+    },{
+      id: 2,
+      avatar: 'img/ben.png',
+      nickname: '昵称',
+      specialty: '计算机专业',
+      graduation: '2009级',
+    }]
   },{
     id: 3,
     name: '林学院校友会',
     image: 'img/mike.png',
     users_count: 30,
-    intro: '成就梦想'
+    intro: '成就梦想',
+    created_at: '2016-10-11',
+    events: [{
+      id: 1,
+      name: '打羽毛球活动',
+      image: 'img/mike.png',
+      state: '预告',
+      time: '2016-10-11 09:19',
+      joined_count: 10,
+      needed_count: 50
+    }, {
+      id: 2,
+      name: '某某老师做报告活动',
+      image: 'img/ben.png',
+      state: '预告',
+      time: '2016-10-11 09:19',
+      joined_count: 10,
+      needed_count: 50
+    }],
+    users: [{
+      id: 1,
+      avatar: 'img/mike.png',
+      nickname: '昵称',
+      specialty: '工业工程',
+      graduation: '2006级',
+    },{
+      id: 2,
+      avatar: 'img/ben.png',
+      nickname: '昵称',
+      specialty: '计算机专业',
+      graduation: '2009级',
+    }]
   }];
 
   this.getOrganizations = function() {
@@ -304,6 +397,60 @@ angular.module('xiaoyoutong.services', [])
     this.getUsers = function(obj) {
       return users;
     };
+})
+
+.service('companiesService', function() {
+  var companies = [{
+    id: 1,
+    name: '张三科技有限公司',
+    image: 'img/mike.png',
+    intro: '这是简介',
+    needed_count: 10,
+    joined_count: 2,
+    user: {
+      id: 1,
+      uid: '1001',
+      nickname: '张三',
+    }
+  },{
+    id: 2,
+    name: '张三科技有限公司2',
+    image: 'img/ben.png',
+    intro: '这是简介2',
+    needed_count: 100,
+    joined_count: 12,
+    user: {
+      id: 1,
+      uid: '1001',
+      nickname: '张三',
+    }
+  }];
+
+  this.getCompanies = function() {
+    return companies;
+  };
+
+  this.getCompany = function(id) {
+    return {
+      id: 1,
+      name: '张三科技有限公司',
+      image: 'img/ben.png',
+      intro: '这是简介',
+      joined_count: 12,
+      needed_count: 100,
+      user: {
+        id: 1,
+        uid: 1001,
+        nickname: 'test',
+        avatar: 'img/mike.png',
+        specialty: '工业工程',
+        graduation: '2006级',
+      },
+      body: '<p>xxxxxx</p>',
+      state: '已结束'
+    };
+  } 
+
 })
 
 .factory('sectionFactory', function() {

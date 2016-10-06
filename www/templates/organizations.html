@@ -8,7 +8,7 @@
         		<p>成员：{{total_organizations}}</p>
         		<i class="icon ion-chevron-right icon-accessory"></i>
 			</ion-item>
-			<ion-item class="item-remove-animate item item-thumbnail-left item-icon-right" ng-repeat="organ in organizations" type="item-text-wrap" href="#/tab/organizations/{{organ.id}}">
+			<ion-item class="item-remove-animate item item-thumbnail-left item-icon-right item-text-wrap" ng-repeat="organ in organizations" href="#/tab/organizations/{{organ.id}}">
         		<img ng-src="{{organ.image}}">
         		<h2>{{organ.name}}</h2>
         		<p>{{organ.intro}}</p>

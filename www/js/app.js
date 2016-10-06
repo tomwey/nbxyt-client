@@ -202,6 +202,17 @@ angular.module('xiaoyoutong', ['ionic', 'xiaoyoutong.controllers', 'xiaoyoutong.
     }
   })
 
+  // 实习基地详情
+  .state('tab.companydetail', {
+    url: '/companies/:id', 
+    views: {
+      'tab-home': {
+        templateUrl: 'templates/company-detail.html',
+        controller: 'CompanyDetailCtrl',
+      }
+    }
+  })
+
   // 捐赠
   .state('tab.donate', {
     url: '/donate',

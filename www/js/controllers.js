@@ -93,8 +93,13 @@ angular.module('xiaoyoutong.controllers', [])
 })
 
 // 实习基地列表页面
-.controller('CompaniesCtrl', function($scope) {
+.controller('CompaniesCtrl', function($scope, companiesService) {
+  $scope.companies = companiesService.getCompanies();
+})
 
+// 基地详情
+.controller('CompanyDetailCtrl', function($scope, companiesService, $stateParams) {
+  $scope.company = companiesService.getCompany(parseInt($stateParams.id));
 })
 
 // 捐赠页面
