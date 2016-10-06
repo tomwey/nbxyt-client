@@ -19,3 +19,11 @@
 	height: 200px;
 	background-color: rgb(234,74,50);
 }
+
+.last-message-time {
+	position: absolute;
+	right: 15px;
+	top: 15px;
+	color: #8c8c8c;
+    font-size: 13px;
+}
