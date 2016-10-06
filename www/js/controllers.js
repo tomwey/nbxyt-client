@@ -175,9 +175,7 @@ angular.module('xiaoyoutong.controllers', [])
 
 // 个人中心页面
 .controller('SettingsCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
+  $scope.user = {avatar: 'img/ben.png'};
 })
 .directive('hideTabs', function($rootScope) {
     return {
