@@ -266,6 +266,7 @@ angular.module('xiaoyoutong.services', [])
     name: '羽毛球俱乐部',
     intro: '健康生活，我快乐',
     users_count: 100,
+    bylaws: '<h2>标题</h2><p>内容</p>',
     events: [{
       id: 1,
       name: '打羽毛球活动',
@@ -302,6 +303,7 @@ angular.module('xiaoyoutong.services', [])
     image: 'img/mike.png',
     name: '健身俱乐部',
     intro: '我运动我快乐，真的很不错，不信来试试!',
+    bylaws: '<h2>标题</h2><p>内容</p>',
     users_count: 42,
     events: [{
       id: 1,
@@ -453,6 +455,89 @@ angular.module('xiaoyoutong.services', [])
 
 })
 
+.service('donatesService', function() {
+  // 捐赠展示
+  var donates = [{
+    id: 1,
+    title: '紫金港校区图书馆',
+    body: '这是捐赠详情',
+    image: 'img/ben.png',
+    intro: '浙大理工学院科技信息楼由郑润生校友捐建而成',
+  }];
+  // 相关报到
+  var articles1 = [{
+    id: 1,
+    title: '紫金港校区图书馆',
+    body: '这是捐赠详情',
+    image: 'img/ben.png',
+    time: '2016-10-11',
+    node: {
+      id: 1,
+      name: '相关报到',
+    }
+  }];
+  // 捐赠感谢
+  var articles2 = [{
+    id: 1,
+    title: '紫金港校区图书馆',
+    body: '这是捐赠详情',
+    image: 'img/ben.png',
+    time: '2016-10-11',
+    node: {
+      id: 2,
+      name: '捐赠感谢',
+    }
+  }];
+
+  this.getDonatesInfo = function() {
+    return {
+      donates: donates,
+      articles_1: articles1,
+      articles_2: articles2,
+    };
+  };
+
+  this.getDonates = function() {
+    return donates;
+  };
+
+  this.getArticleInfoByNode = function(node_id) {
+    return {
+      node: {
+        id: node_id,
+        name: '相关报到',
+      },
+      articles: [{
+        id: 1,
+        title: '紫金港校区图书馆',
+        body: '这是捐赠详情',
+        image: 'img/ben.png',
+        time: '2016-10-11',
+      }]
+    };
+  };
+
+  this.getDonate = function(id) {
+    return {
+        id: 1,
+        title: '紫金港校区图书馆',
+        body: '这是捐赠详情',
+        image: 'img/ben.png',
+        intro: '这是简介',
+    };
+  };
+
+  this.getArticle = function(article_id) {
+    return {
+        id: 1,
+        title: '紫金港校区图书馆',
+        body: '这是捐赠详情',
+        image: 'img/ben.png',
+        time: '2016-10-11',
+    };
+  };
+})
+
 .factory('sectionFactory', function() {
   var sections = [{
     id: 1,
@@ -481,7 +566,7 @@ angular.module('xiaoyoutong.services', [])
   },
   {
     id: 6,
-    url: '#/tab/donate',
+    url: '#/tab/donate-home',
     img: 'img/img_don.png',
   },
   ];

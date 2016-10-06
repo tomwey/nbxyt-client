@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('xiaoyoutong', ['ionic', 'xiaoyoutong.controllers', 'xiaoyoutong.services'])
+angular.module('xiaoyoutong', ['ionic', 'xiaoyoutong.controllers', 'xiaoyoutong.services', 'ui.router'])
 
 .config(['$ionicConfigProvider', function($ionicConfigProvider){
   $ionicConfigProvider.tabs.position('bottom');
@@ -169,6 +169,17 @@ angular.module('xiaoyoutong', ['ionic', 'xiaoyoutong.controllers', 'xiaoyoutong.
     }
   })
 
+  // 俱乐部章程
+  .state('tab.bylaws', {
+    url: '/clubs/:id/bylaws',
+    views: {
+      'tab-home': {
+        templateUrl: 'templates/bylaws.html',
+        controller: 'ClubDetailCtrl',
+      }
+    }
+  })
+
   // 活动列表
   .state('tab.events', {
     url: '/events',
@@ -213,13 +224,79 @@ angular.module('xiaoyoutong', ['ionic', 'xiaoyoutong.controllers', 'xiaoyoutong.
     }
   })
 
-  // 捐赠
-  .state('tab.donate', {
-    url: '/donate',
+  // 捐赠首页
+  .state('tab.donate-home', {
+    url: '/donate-home',
     views: {
       'tab-home': {
-        templateUrl: 'templates/donate.html',
-        controller: 'DonateCtrl',
+        templateUrl: 'templates/donate-home.html',
+        controller: 'DonateHomeCtrl',
+      }
+    }
+  })
+
+  // 捐赠
+  .state('tab.donates', {
+    url: '/donates',
+    views: {
+      'tab-home': {
+        templateUrl: 'templates/donates.html',
+        controller: 'DonatesCtrl',
+      }
+    }
+  })
+
+  // 捐赠详情
+  .state('tab.donate-detail', {
+    url: '/donates/:id', 
+    views: {
+      'tab-home': {
+        templateUrl: 'templates/donate-detail.html',
+        controller: 'DonateDetailCtrl',
+      }
+    }
+  })
+
+  // 捐赠文章列表
+  .state('tab.articles', {
+    url: '/articles/node:id',
+    views: {
+      'tab-home': {
+        templateUrl: 'templates/articles.html',
+        controller: 'ArticlesCtrl',
+      }
+    }
+  })
+
+  // 捐赠文章详情
+  .state('tab.article-detail', {
+    url: '/donate/articles/:id',
+    views: {
+      'tab-home': {
+        templateUrl: 'templates/article-detail.html',
+        controller: 'ArticleDetailCtrl',
+      }
+    }
+  })
+
+  // 捐赠帮助
+  .state('tab.donate-help', {
+    url: '/donate/help',
+    views: {
+      'tab-home': {
+        templateUrl: 'templates/donate-help.html',
+        controller: 'DonateHelpCtrl',
+      }
+    }
+  })
+
+  // 捐赠申请
+  .state('tab.donate-apply', {
+    url: '/donate/apply', 
+    views: {
+      'tab-home': {
+        templateUrl: 'templates/donate-apply.html',
+        controller: 'DonateApplyCtrl',
       }
     }
   })

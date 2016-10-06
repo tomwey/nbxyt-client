@@ -66,6 +66,8 @@ angular.module('xiaoyoutong.controllers', [])
 .controller('ClubDetailCtrl', function($scope, clubsService, $stateParams) {
   $scope.club = clubsService.getClub(parseInt($stateParams.id));
 
+  console.log($scope.club);
+
   // 加入俱乐部
   $scope.doJoinClub = function(id) {
     alert(id);
@@ -102,9 +104,53 @@ angular.module('xiaoyoutong.controllers', [])
   $scope.company = companiesService.getCompany(parseInt($stateParams.id));
 })
 
-// 捐赠页面
-.controller('DonateCtrl', function($scope) {
+// 捐赠首页
+.controller('DonateHomeCtrl', function($scope, $state, donatesService) {
+  $scope.donatesInfo = donatesService.getDonatesInfo();
 
+  $scope.gotoDonateHelp = function() {
+    $state.go('tab.donate-help');
+  };
+  $scope.gotoApply = function() {
+    $state.go('tab.donate-apply');
+  };
+})
+
+// 捐赠页面
+.controller('DonatesCtrl', function($scope, $state, donatesService) {
+  $scope.donates = donatesService.getDonates();
+})
+
+// 捐赠文章列表
+.controller('ArticlesCtrl', function($scope, $stateParams, donatesService) {
+  $scope.articleInfo = donatesService.getArticleInfoByNode(parseInt($stateParams.id));
+})
+
+// 捐赠详情
+.controller('DonateDetailCtrl', function($scope, $stateParams, donatesService) {
+  $scope.donate = donatesService.getDonate(parseInt($stateParams.id));
+})
+
+// 捐赠文章详情
+.controller('ArticleDetailCtrl', function($scope, $stateParams, donatesService) {
+  $scope.article = donatesService.getArticle(parseInt($stateParams.id));
+})
+
+// 捐赠帮助
+.controller('DonateHelpCtrl', function($scope, $state) {
+  $scope.page = { title: '捐赠标题', body: '捐赠详情'};
+
+  $scope.gotoApply = function() {
+    $state.go('tab.donate-apply');
+  };
+})
+
+// 捐赠申请
+.controller('DonateApplyCtrl', function($scope) {
+  $scope.donate_apply = { content: '', author: '' };
+  $scope.commitApply = function() {
+    alert($scope.donate_apply);
+  };
 })
 
 // 消息页面

@@ -1,0 +1,51 @@
+<!--
+  This template loads for the 'tab.friend-detail' state (app.js)
+  'friend' is a $scope variable created in the FriendsCtrl controller (controllers.js)
+  The FriendsCtrl pulls data from the Friends service (service.js)
+  The Friends service returns an array of friend data
+-->
+<ion-view view-title="爱心捐赠" hide-tabs>
+	<ion-nav-buttons side="secondary">
+		<button class="button button-icon icon ion-ios-information-outline" ng-click="gotoDonateHelp();"></button>
+	</ion-nav-buttons>
+	<ion-content>
+		<!-- 最新捐赠 -->
+		<div class="card list">
+			<div class="item item-divider"><h2>最新捐赠</h2></div>
+			<ion-item class="item-remove-animate item item-thumbnail-left item-icon-right item-text-wrap" ng-repeat="donate in donatesInfo.donates" href="#/tab/donates/{{donate.id}}">
+				<img ng-src="{{donate.image}}">
+				<h2>{{donate.title}}</h2>
+				<p>{{donate.intro}}</p>
+				<i class="icon ion-chevron-right icon-accessory"></i>
+			</ion-item>
+			<a class="item" href="#/tab/donates"><h2>查看全部捐赠</h2></a>
+		</div>
+		<!-- 相关报道 -->
+		<div class="card list">
+			<div class="item item-divider"><h2>相关报道</h2></div>
+			<ion-item class="item-remove-animate item item-thumbnail-left item-icon-right item-text-wrap" ng-repeat="article in donatesInfo.articles_1" href="#/tab/donate/articles/{{article.id}}">
+				<img ng-src="{{article.image}}">
+				<h2>{{article.title}}</h2>
+				<p>{{article.time}}</p>
+				<i class="icon ion-chevron-right icon-accessory"></i>
+			</ion-item>
+			<a class="item" href="#/tab/articles/node{{article.node.id}}"><h2>更多</h2></a>
+		</div>
+		<!-- 捐赠感谢 -->
+		<div class="card list">
+			<div class="item item-divider"><h2>捐赠感谢</h2></div>
+			<ion-item class="item-remove-animate item item-thumbnail-left item-icon-right item-text-wrap" ng-repeat="article in donatesInfo.articles_2" href="#/tab/donate/articles/{{article.id}}">
+				<img ng-src="{{article.image}}">
+				<h2>{{article.title}}</h2>
+				<p>{{article.time}}</p>
+				<i class="icon ion-chevron-right icon-accessory"></i>
+			</ion-item>
+			<a class="item" href="#/tab/articles/node{{article.node.id}}"><h2>更多</h2></a>
+		</div>
+  	</ion-content>
+  	<ion-footer-bar class="bar-assertive">
+    	<div class="title" style="text-align: center; margin: 0 -10px;" ng-click="gotoApply();">
+      		马上捐赠
+    	</div>
+  	</ion-footer-bar>
+</ion-view>
