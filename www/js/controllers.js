@@ -177,6 +177,27 @@ angular.module('xiaoyoutong.controllers', [])
 .controller('SettingsCtrl', function($scope) {
   $scope.user = {avatar: 'img/ben.png'};
 })
+
+// 登录
+.controller('LoginCtrl', function($scope,usersService) {
+  $scope.user = {mobile: '', password: ''};
+  $scope.doLogin = function() {
+    usersService.login($scope.user);
+  };
+})
+// 注册
+.controller('SignupCtrl', function($scope, $state) {
+  $scope.user = {mobile: '', password: '', code: ''};
+  $scope.doRegister = function() {
+    // alert('2222');
+    $state.go('signup-final');
+  };
+  $scope.doFetchCode = function() {
+    alert('123');
+  };
+})
+
+// 隐藏tabs指令
 .directive('hideTabs', function($rootScope) {
     return {
         restrict: 'A',

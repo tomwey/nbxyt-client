@@ -310,7 +310,28 @@ angular.module('xiaoyoutong', ['ionic', 'xiaoyoutong.controllers', 'xiaoyoutong.
           controller: 'MessagesCtrl'
         }
       }
-    })
+  })
+
+  // 登录
+  .state('login', {
+    url: '/login',
+    templateUrl: 'templates/login.html',
+    controller: 'LoginCtrl',
+  })
+
+  // 注册
+  .state('signup', {
+    url: '/signup',
+    templateUrl: 'templates/signup.html',
+    controller: 'SignupCtrl',
+  })
+
+  // 完善资料
+  .state('signup-final', {
+    url: '/signup-final',
+    templateUrl: 'templates/signup-final.html',
+    controller: 'SignupCtrl',
+  })
 
   // 个人中心
   .state('tab.setting', {
