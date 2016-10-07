@@ -55,6 +55,7 @@ angular.module('xiaoyoutong.controllers', [])
   var order = {};
 
   $scope.order = order;
+  $scope.orders = [{}];
 })
 
 // 俱乐部列表页面
@@ -174,8 +175,21 @@ angular.module('xiaoyoutong.controllers', [])
 })
 
 // 个人中心页面
-.controller('SettingsCtrl', function($scope) {
+.controller('SettingsCtrl', function($scope, $state) {
   $scope.user = {avatar: 'img/ben.png'};
+  $scope.gotoOrders = function(state = '') {
+    if (state.length == 0) {
+      $state.go('tab.orders');
+    } else {
+      $state.go('tab.orders-' + state);
+    }
+    
+  };
+})
+
+// 个人资料
+.controller('UserCtrl', function($scope) {
+  $scope.user = {  };
 })
 
 // 登录

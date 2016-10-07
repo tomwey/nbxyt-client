@@ -342,7 +342,29 @@ angular.module('xiaoyoutong', ['ionic', 'xiaoyoutong.controllers', 'xiaoyoutong.
         controller: 'SettingsCtrl'
       }
     }
-  });
+  })
+
+  // 个人资料
+  .state('tab.profile', {
+    url: '/profile',
+    views: {
+      'tab-setting': {
+        templateUrl: 'templates/user-profile.html',
+        controller: 'UserCtrl',
+      }
+    }
+  })
+
+  // 我的订单
+  .state('tab.orders', {
+    url: '/orders',
+    views: {
+      'tab-setting': {
+        templateUrl: 'templates/orders.html',
+        controller: 'OrdersCtrl',
+      }
+    }
+  })
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/home');

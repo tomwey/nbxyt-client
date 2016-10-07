@@ -52,3 +52,22 @@
 	padding: 5px;
 	cursor: pointer;
 }
+
+.item-text-right span, .item-text-right p  {
+	float: right;
+	display: inline-block;
+}
+
+.item-block-right .item-block {
+	display: inline-block;
+	float: right;
+}
+
+.item-block-left .item-block {
+	float: left;
+	display: block;
+}
+
+.item-arrow .icon {
+	color: rgb(204,204,204);
+}

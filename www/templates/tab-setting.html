@@ -1,7 +1,7 @@
 <ion-view view-title="我的">
   <ion-content>
     <div class="list">
-    	<ion-item class="item item-icon-right item-avatar" href="#/login">
+    	<ion-item class="item item-icon-right item-avatar" href="#/tab/profile">
     		<img ng-src="{{user.avatar}}" alt="{{user.nickname}}">
     		<div class="row">
     			<div class="col col-center">
@@ -11,29 +11,48 @@
     		<i class="icon ion-chevron-right icon-accessory"></i>
     	</ion-item>
     	<div class="item item-divider"></div>
-    	<ion-item class="item-remove-animate item-icon-right" href="">
+    	<ion-item class="item-remove-animate item-icon-right" href="#/tab/organizations">
     		我的校友组织
     		<i class="icon ion-chevron-right icon-accessory"></i>
     	</ion-item>
-    	<ion-item class="item-remove-animate item-icon-right" href="">
+    	<ion-item class="item-remove-animate item-icon-right" href="#/tab/clubs">
     		我的俱乐部
     		<i class="icon ion-chevron-right icon-accessory"></i>
     	</ion-item>
-    	<ion-item class="item-remove-animate item-icon-right" href="">
+    	<ion-item class="item-remove-animate item-icon-right" href="#/tab/events">
     		我的活动
     		<i class="icon ion-chevron-right icon-accessory"></i>
     	</ion-item>
     	<div class="item item-divider"></div>
-    	<ion-item class="item-remove-animate item-icon-right" href="">
-    		我的订单
-    		<i class="icon ion-chevron-right icon-accessory"></i>
-    	</ion-item>
+    	<ion-item ng-click="gotoOrders();" class="item-remove-animate item-block-right item-arrow">
+            我的订单
+            <div class="item-block">
+                <span style="color: rgb(201,201,201)">查看全部订单</span>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+            </div>
+        </ion-item>
+        <div class="item">
+            <div class="row">
+                <div class="col col-30" style="text-align: center;" ng-click="gotoOrders('pending')">
+                    <i class="icon ion-calculator"></i>
+                    待付款
+                </div>
+                <div class="col col-30" style="text-align: center;" ng-click="gotoOrders('paid')">
+                    <i class="icon ion-ios-clock-outline"></i>
+                    待收货
+                </div>
+                <div class="col col-30" style="text-align: center;" ng-click="gotoOrders('completed')">
+                    <i class="icon ion-edit"></i>
+                    待评价
+                </div>
+            </div>
+        </div>
     	<div class="item item-divider"></div>
-    	<ion-item class="item-remove-animate item-icon-right" href="">
+    	<ion-item class="item-remove-animate item-icon-right" href="#/tab/feedback">
     		意见反馈
     		<i class="icon ion-chevron-right icon-accessory"></i>
     	</ion-item>
-    	<ion-item class="item-remove-animate item-icon-right" href="">
+    	<ion-item class="item-remove-animate item-icon-right" href="#/tab/aboutus">
     		关于我们
     		<i class="icon ion-chevron-right icon-accessory"></i>
     	</ion-item>
