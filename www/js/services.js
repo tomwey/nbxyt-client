@@ -549,11 +549,11 @@ angular.module('xiaoyoutong.services', [])
     url: '#/tab/alumnus',
     img: 'img/img_alb.png',
   },
-  {
-    id: 3,
-    url: '#/tab/shop',
-    img: 'img/img_shop.png',
-  },
+  // {
+  //   id: 3,
+  //   url: '#/tab/shop',
+  //   img: 'img/img_shop.png',
+  // },
   {
     id: 4,
     url: '#/tab/clubs',
