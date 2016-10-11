@@ -12,35 +12,35 @@
 		<!-- 最新捐赠 -->
 		<div class="card list">
 			<div class="item item-divider"><h2>最新捐赠</h2></div>
-			<ion-item class="item-remove-animate item item-thumbnail-left item-icon-right item-text-wrap" ng-repeat="donate in donatesInfo.donates" href="#/tab/donates/{{donate.id}}">
+			<ion-item class="item-remove-animate item item-thumbnail-left item-icon-right item-text-wrap" ng-repeat="donate in donatesInfo.donates.data" href="#/tab/donates/{{donate.id}}">
 				<img ng-src="{{donate.image}}">
 				<h2>{{donate.title}}</h2>
 				<p>{{donate.intro}}</p>
 				<i class="icon ion-chevron-right icon-accessory"></i>
 			</ion-item>
-			<a class="item" href="#/tab/donates"><h2>查看全部捐赠</h2></a>
+			<a class="item" href="#/tab/donates" ng-show="{{donatesInfo.donates.has_more}}"><h2>查看全部捐赠</h2></a>
 		</div>
 		<!-- 相关报道 -->
 		<div class="card list">
 			<div class="item item-divider"><h2>相关报道</h2></div>
-			<ion-item class="item-remove-animate item item-thumbnail-left item-icon-right item-text-wrap" ng-repeat="article in donatesInfo.articles_1" href="#/tab/donate/articles/{{article.id}}">
+			<ion-item class="item-remove-animate item item-thumbnail-left item-icon-right item-text-wrap" ng-repeat="article in donatesInfo.reports.data" href="#/tab/donate/articles/{{article.id}}">
 				<img ng-src="{{article.image}}">
 				<h2>{{article.title}}</h2>
-				<p>{{article.time}}</p>
+				<p>{{article.published_at}}</p>
 				<i class="icon ion-chevron-right icon-accessory"></i>
 			</ion-item>
-			<a class="item" href="#/tab/articles/node{{article.node.id}}"><h2>更多</h2></a>
+			<a class="item" href="#/tab/articles/node{{article.node.id}}" ng-show="{{donatesInfo.reports.has_more}}"><h2>更多</h2></a>
 		</div>
 		<!-- 捐赠感谢 -->
 		<div class="card list">
 			<div class="item item-divider"><h2>捐赠感谢</h2></div>
-			<ion-item class="item-remove-animate item item-thumbnail-left item-icon-right item-text-wrap" ng-repeat="article in donatesInfo.articles_2" href="#/tab/donate/articles/{{article.id}}">
+			<ion-item class="item-remove-animate item item-thumbnail-left item-icon-right item-text-wrap" ng-repeat="article in donatesInfo.thanks.data" href="#/tab/donate/articles/{{article.id}}">
 				<img ng-src="{{article.image}}">
 				<h2>{{article.title}}</h2>
-				<p>{{article.time}}</p>
+				<p>{{article.published_at}}</p>
 				<i class="icon ion-chevron-right icon-accessory"></i>
 			</ion-item>
-			<a class="item" href="#/tab/articles/node{{article.node.id}}"><h2>更多</h2></a>
+			<a class="item" href="#/tab/articles/node{{article.node.id}}" ng-show="{{donatesInfo.thanks.has_more}}"><h2>更多</h2></a>
 		</div>
   	</ion-content>
   	<ion-footer-bar class="bar-assertive">

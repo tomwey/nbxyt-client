@@ -1,5 +1,34 @@
 angular.module('xiaoyoutong.services', [])
-.constant('baseURL', 'http://localhost:3000')
+.constant('apiHost', 'http://xyt.deyiwifi.com/api/v1')
+.service('AccessKeyService', function($base64) {
+  this.fromTimestamp = function(timestamp) {
+    return $base64.encode('efd12eada3aa4976994546572c235cd8' + timestamp);
+  };
+})
+.service('DataService', function(apiHost, $http, AccessKeyService, $httpParamSerializer) {
+
+  var _this = this;
+
+  this.querystringForParams = function(params) {
+    params = params || {};
+
+    var timestamp = new Date().getTime();
+    var ak = AccessKeyService.fromTimestamp(timestamp);
+    params.i = timestamp;
+    params.ak = ak;
+
+    return $httpParamSerializer(params);
+  };
+
+  this.get = function(api, params) {
+    var querystring = _this.querystringForParams(params);
+    return $http.get(apiHost + api + '?' + querystring);
+  };
+  this.post = function(api, params) {
+
+  };
+})
+
 .factory('bannerFactory', function() {
   // Might use a resource here that returns a JSON array
 

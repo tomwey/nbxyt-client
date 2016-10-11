@@ -6,7 +6,7 @@
 			</div>
 			<div class="item item-text-wrap">
 				<h2>{{club.name}}</h2>
-				<p>创建时间：{{club.created_at}}</p>
+				<p>创建时间：{{club.founded_on}}</p>
 				<p>成员：{{club.users_count}}</p>
 			</div>
 		</div>
@@ -27,7 +27,7 @@
 		</div>
 		
 		<!-- 俱乐部活动 -->
-		<div class="card list">
+		<div class="card list" ng-show="{{isShowEvents}}">
 			<div class="item item-divider"><h2>最近活动</h2></div>
 			<ion-item class="item-remove-animate item item-thumbnail-left item-icon-right item-text-wrap" ng-repeat="event in club.events" 
 				href="#/tab/events/{{event.id}}">
@@ -37,11 +37,11 @@
     			<p>参加人数：{{event.joined_count}} / {{event.needed_count}}</p>
     			<i class="icon ion-chevron-right icon-accessory"></i>
 			</ion-item>
-			<a class="item item-divider" href="#/tab/events"><h2>查看全部活动</h2></a>
+			<a class="item item-divider" href="#/tab/events" ng-show="{{isShowLoadMoreEvents}}"><h2>查看全部活动</h2></a>
 		</div>
 
 		<!-- 俱乐部成员 -->
-		<div class="card">
+		<div class="card" ng-show="{{isShowUsers}}">
 			<div class="item item-divider">最近加入成员</div>
 			<ion-item class="item-remove-animate item-avatar item-icon-right item-button-right" ng-repeat="obj in club.users" href="">
         		<img ng-src="{{obj.avatar}}">
@@ -49,7 +49,7 @@
         		<p>{{obj.specialty}}&nbsp;&nbsp;{{obj.graduation}}</p>
         		<button class="button button-positive button-outline" style="font-size: 14px;">私信</button>
       		</ion-item>
-			<a class="item item-divider" href="#/tab/users?type=club"><h2>查看全部成员</h2></a>
+			<a class="item item-divider" href="#/tab/users?type=club" ng-show="{{isShowLoadMoreUsers}}"><h2>查看全部成员</h2></a>
 		</div>
 	</ion-content>
 	<ion-footer-bar class="bar-assertive">

@@ -1,9 +1,12 @@
 angular.module('xiaoyoutong.controllers', [])
 
 // 首页
-.controller('HomeCtrl', function($scope, bannerFactory, sectionFactory, $ionicSlideBoxDelegate) {
-  // console.log(bannerFactory.all()[0].name);
-  $scope.banners = bannerFactory.all();
+.controller('HomeCtrl', function($scope, sectionFactory, $ionicSlideBoxDelegate, DataService) {
+
+  DataService.get('/banners', null).success(function(result) {
+    // console.log(result.data.data);
+    $scope.banners = result.data.data;
+  });
 
   $ionicSlideBoxDelegate.$getByHandle('slideimgs').update();
   $ionicSlideBoxDelegate.$getByHandle('slideimgs').loop(true);
@@ -20,17 +23,36 @@ angular.module('xiaoyoutong.controllers', [])
 })
 
 // 校友组织列表
-.controller('OrganizationsCtrl', function($scope, organizationService) {
-  var organizations = organizationService.getOrganizations();
-  $scope.organizations = organizations;
+.controller('OrganizationsCtrl', function($scope, DataService, $ionicLoading) {
+
+  $ionicLoading.show();
+  DataService.get('/organizations', null).then(function(result){
+    $scope.organizations = result.data.data;
+    $ionicLoading.hide();
+  },function(error){
+    $ionicLoading.hide();
+  });
 })
 
 // 校友组织详情
-.controller('OrganizationDetailCtrl', function($scope, $stateParams, organizationService) {
-  console.log($stateParams)
-  var organization = organizationService.getOrganization(parseInt($stateParams.id));
-  console.log(organization);
-  $scope.organization = organization;
+.controller('OrganizationDetailCtrl', function($scope, $stateParams, DataService, $ionicLoading) {
+
+  $ionicLoading.show();
+  DataService.get('/organizations/' + $stateParams.id, null).then(function(result) {
+    $scope.organization = result.data.data;
+
+    $scope.isShowEvents = $scope.organization.latest_events.count > 0;
+    $scope.isShowUsers = $scope.organization.latest_users.count > 0;
+
+    $scope.isShowLoadMoreEvents = $scope.organization.latest_events.count >= 5;
+    $scope.isShowLoadMoreUsers = $scope.organization.latest_users.count >= 5;
+
+    $ionicLoading.hide();
+
+  }, function(err) {
+    $ionicLoading.hide();
+  });
+
 })
 
 // 同学录页面
@@ -59,15 +81,35 @@ angular.module('xiaoyoutong.controllers', [])
 })
 
 // 俱乐部列表页面
-.controller('ClubsCtrl', function($scope, clubsService) {
-  $scope.clubs = clubsService.getClubs();
+.controller('ClubsCtrl', function($scope, DataService, $ionicLoading) {
+
+  $ionicLoading.show();
+
+  $scope.clubs = DataService.get('/clubs', null).then(function(response){
+    $scope.clubs = response.data.data;
+
+    $ionicLoading.hide();
+  },function(error){
+    $ionicLoading.hide();
+  });
 })
 
 // 俱乐部详情页
-.controller('ClubDetailCtrl', function($scope, clubsService, $stateParams) {
-  $scope.club = clubsService.getClub(parseInt($stateParams.id));
+.controller('ClubDetailCtrl', function($scope, DataService, $ionicLoading, $stateParams) {
+  $ionicLoading.show();
+  $scope.club = DataService.get('/clubs/' + parseInt($stateParams.id), null).then(function(response){
+    $scope.club = response.data.data;
 
-  console.log($scope.club);
+    $scope.isShowEvents = $scope.club.latest_events.count > 0;
+    $scope.isShowUsers = $scope.club.latest_users.count > 0;
+
+    $scope.isShowLoadMoreEvents = $scope.club.latest_events.count >= 5;
+    $scope.isShowLoadMoreUsers = $scope.club.latest_users.count >= 5;
+
+    $ionicLoading.hide();
+  },function(err){
+    $ionicLoading.hide();
+  });
 
   // 加入俱乐部
   $scope.doJoinClub = function(id) {
@@ -96,18 +138,40 @@ angular.module('xiaoyoutong.controllers', [])
 })
 
 // 实习基地列表页面
-.controller('CompaniesCtrl', function($scope, companiesService) {
-  $scope.companies = companiesService.getCompanies();
+.controller('CompaniesCtrl', function($scope, DataService, $ionicLoading) {
+  $ionicLoading.show();
+
+  $scope.companies = DataService.get('/bases', null).then(function(response){
+    $scope.companies = response.data.data;
+    $ionicLoading.hide();
+  },function(err) {
+    $ionicLoading.hide();
+  });
 })
 
 // 基地详情
-.controller('CompanyDetailCtrl', function($scope, companiesService, $stateParams) {
-  $scope.company = companiesService.getCompany(parseInt($stateParams.id));
+.controller('CompanyDetailCtrl', function($scope, DataService, $stateParams, $ionicLoading) {
+  $ionicLoading.show();
+
+  $scope.company = DataService.get('/bases/' + parseInt($stateParams.id), null).then(function(response) {
+    $scope.company = response.data.data;
+    $ionicLoading.hide();
+  }, function(err) {
+    $ionicLoading.hide();
+  });
 })
 
 // 捐赠首页
-.controller('DonateHomeCtrl', function($scope, $state, donatesService) {
-  $scope.donatesInfo = donatesService.getDonatesInfo();
+.controller('DonateHomeCtrl', function($scope, $state, DataService, $ionicLoading) {
+  $ionicLoading.show();
+
+  $scope.donatesInfo = DataService.get('/donates/home', null).then(function(response){
+    $scope.donatesInfo = response.data.data;
+
+    $ionicLoading.hide();
+  }, function(err) {
+    $ionicLoading.hide();
+  });
 
   $scope.gotoDonateHelp = function() {
     $state.go('tab.donate-help');
@@ -133,8 +197,16 @@ angular.module('xiaoyoutong.controllers', [])
 })
 
 // 捐赠文章详情
-.controller('ArticleDetailCtrl', function($scope, $stateParams, donatesService) {
-  $scope.article = donatesService.getArticle(parseInt($stateParams.id));
+.controller('ArticleDetailCtrl', function($scope, $stateParams, DataService, $ionicLoading) {
+  $ionicLoading.show();
+
+  $scope.article = DataService.get('/articles/' + parseInt($stateParams.id), null).then(function(response) {
+    $scope.article = response.data.data;
+
+    $ionicLoading.hide();
+  }, function(err) {
+    $ionicLoading.hide();
+  });
 })
 
 // 捐赠帮助
