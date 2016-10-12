@@ -3,19 +3,31 @@ angular.module('xiaoyoutong.controllers', [])
 // 首页
 .controller('HomeCtrl', function($scope, sectionFactory, $ionicSlideBoxDelegate, DataService) {
 
-  DataService.get('/banners', null).then(function(result) {
-    // console.log(result.data.data);
-    $scope.banners = result.data.data;
+  var _this = this;
+  
+  this.loadData = function() {
+    DataService.get('/banners', null).then(function(result) {
+      // console.log(result.data.data);
+      $scope.banners = result.data.data;
     
-    $ionicSlideBoxDelegate.$getByHandle('slideimgs').update();
-    $ionicSlideBoxDelegate.$getByHandle('slideimgs').loop(true);
-    // $ionicSlideBoxDelegate.$getByHandle('slideimgs').start();
-    //
-    // $ionicSlideBoxDelegate.$getByHandle('slideimgs').next();
+      $ionicSlideBoxDelegate.$getByHandle('slideimgs').update();
+      $ionicSlideBoxDelegate.$getByHandle('slideimgs').loop(true);
+      //
+      // $ionicSlideBoxDelegate.$getByHandle('slideimgs').next();
     
-  }, function(error) {
-    console.log(error)
-  });
+    }, function(error) {
+      console.log(error)
+    }).finally(function() {
+       // Stop the ion-refresher from spinning
+       $scope.$broadcast('scroll.refreshComplete');
+     });
+  };
+  
+  this.loadData();
+  
+  $scope.doRefresh = function() {
+    _this.loadData();
+  };
 
   $scope.sections = sectionFactory.all();
 })
@@ -190,6 +202,10 @@ angular.module('xiaoyoutong.controllers', [])
 
   $scope.donatesInfo = DataService.get('/donates/home', null).then(function(response){
     $scope.donatesInfo = response.data.data;
+    
+    $scope.isShowDonates = $scope.donatesInfo.donates != undefined;
+    $scope.isShowReports = $scope.donatesInfo.reports != undefined;
+    $scope.isShowThanks = $scope.donatesInfo.thanks != undefined;
 
     $ionicLoading.hide();
   }, function(err) {
@@ -233,8 +249,17 @@ angular.module('xiaoyoutong.controllers', [])
 })
 
 // 捐赠帮助
-.controller('DonateHelpCtrl', function($scope, $state) {
-  $scope.page = { title: '捐赠标题', body: '捐赠详情'};
+.controller('DonateHelpCtrl', function($scope, $state, DataService, $ionicLoading, $stateParams) {
+  
+  $ionicLoading.show();
+  
+  $scope.page = DataService.get('/pages/donate-help', null).then(function(response){
+    $scope.page = response.data.data;
+  },function(err) {
+    console.log(err);
+  }).finally(function() {
+    $ionicLoading.hide();
+  });
 
   $scope.gotoApply = function() {
     $state.go('tab.donate-apply');
@@ -242,10 +267,31 @@ angular.module('xiaoyoutong.controllers', [])
 })
 
 // 捐赠申请
-.controller('DonateApplyCtrl', function($scope) {
-  $scope.donate_apply = { content: '', author: '' };
+.controller('DonateApplyCtrl', function($scope, DataService, $ionicLoading, $cordovaToast) {
+  $scope.donate_apply = { content: '', contact: '' };
+  
   $scope.commitApply = function() {
-    alert($scope.donate_apply);
+    
+    // if () {
+    //
+    // }
+    
+    $ionicLoading.show();
+    DataService.post('/donates/apply', $scope.donate_apply).then(function(response) {
+      console.log(response.data);
+      $scope.donate_apply = { content: '', contact: '' };
+      
+      // $cordovaToast.show('提交成功', 'long', 'center')
+      // $cordovaToast.show('提交成功', 'long', 'center').then(function(success) {
+        
+      // }, function(err) {
+      //
+      // });
+    }, function(err) {
+      console.log(err);
+    }).finally(function() {
+      $ionicLoading.hide();
+    });
   };
 })
 

@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('xiaoyoutong', ['ionic', 'xiaoyoutong.controllers', 'xiaoyoutong.services', 'ui.router', 'base64', 'ionicLazyLoad'])
+angular.module('xiaoyoutong', ['ionic', 'xiaoyoutong.controllers', 'xiaoyoutong.services', 'ui.router', 'base64', 'ionicLazyLoad', 'ngCordova'])
 
 .config(['$ionicConfigProvider', function($ionicConfigProvider){
   $ionicConfigProvider.tabs.position('bottom');

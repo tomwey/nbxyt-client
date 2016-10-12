@@ -1,5 +1,5 @@
 angular.module('xiaoyoutong.services', [])
-.constant('apiHost', 'http://xyt.deyiwifi.com/api/v1')
+.constant('apiHost', 'http://10.0.16.54:3000/api/v1')
 .service('AccessKeyService', function($base64) {
   this.fromTimestamp = function(timestamp) {
     return $base64.encode('efd12eada3aa4976994546572c235cd8' + timestamp);
@@ -8,24 +8,28 @@ angular.module('xiaoyoutong.services', [])
 .service('DataService', function(apiHost, $http, AccessKeyService, $httpParamSerializer) {
 
   var _this = this;
-
-  this.querystringForParams = function(params) {
+  
+  this.mergeParams = function(params) {
     params = params || {};
 
     var timestamp = new Date().getTime();
     var ak = AccessKeyService.fromTimestamp(timestamp);
     params.i = timestamp;
     params.ak = ak;
-
-    return $httpParamSerializer(params);
+    
+    return params;
+  };
+  
+  this.querystringForParams = function(params) {
+    return $httpParamSerializer(_this.mergeParams(params));
   };
 
   this.get = function(api, params) {
     var querystring = _this.querystringForParams(params);
     return $http.get(apiHost + api + '?' + querystring);
   };
-  this.post = function(api, params) {
-
+  this.post = function(api, params) {    
+    return $http.post(apiHost + api, _this.mergeParams(params));
   };
 })
 
