@@ -1,5 +1,5 @@
 <ion-view view-title="校友组织">
-	<ion-content>
+	<ion-content lazy-scroll>
 		<ion-list>
 			<ion-item class="item-remove-animate item item-thumbnail-left item-icon-right" type="item-text-wrap" href="#/tab/all-organizations">
 				<img ng-src="img/ionic.png">
@@ -9,7 +9,7 @@
         		<i class="icon ion-chevron-right icon-accessory"></i>
 			</ion-item>
 			<ion-item class="item-remove-animate item item-thumbnail-left item-icon-right item-text-wrap" ng-repeat="organ in organizations" href="#/tab/organizations/{{organ.id}}">
-        		<img ng-src="{{organ.image}}">
+        		<img image-lazy-src="{{organ.image}}">
         		<h2>{{organ.name}}</h2>
         		<p>{{organ.intro}}</p>
         		<p>成员：{{organ.users_count}}</p>

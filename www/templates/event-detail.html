@@ -4,22 +4,22 @@
   The FriendsCtrl pulls data from the Friends service (service.js)
   The Friends service returns an array of friend data
 -->
-<ion-view view-title="活动详情">
+<ion-view view-title="活动详情" hide-tabs>
   <ion-content>
     <div class="card">
       <div class="item item-image">
         <img ng-src="{{event.image}}">
       </div>
       <div class="item item-text-wrap">
-        <h2>{{event.name}}</h2>
-        <p>活动时间：{{event.time}}</p>
+        <h2>{{event.title}}</h2>
+        <p>活动开始时间：{{event.started_at}}</p>
+        <p>活动结束时间：{{event.ended_at}}</p>
         <p>参加人数：{{event.joined_count}} / {{event.needed_count}}</p>
       </div>
     </div>
     <div class="card">
       <div class="item item-divider"><h2>活动简介</h2></div>
-      <div class="item item-text-wrap">
-        <p>{{event.intro}}</p>
+      <div class="item item-text-wrap item-image padding" ng-bind-html="event.body">
       </div>
     </div>
   </ion-content>

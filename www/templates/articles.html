@@ -4,7 +4,8 @@
   The FriendsCtrl pulls data from the Friends service (service.js)
   The Friends service returns an array of friend data
 -->
-<ion-view view-title="{{articleInfo.node.name}}">
+<ion-view>
+  <ion-nav-title>{{articleInfo.node.name}}</ion-nav-title>
 	<ion-content>
 		<ion-list>
 			<ion-item class="item-remove-animate item item-thumbnail-left item-icon-right item-text-wrap" ng-repeat="article in articleInfo.articles"

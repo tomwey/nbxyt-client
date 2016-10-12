@@ -3,16 +3,19 @@ angular.module('xiaoyoutong.controllers', [])
 // 首页
 .controller('HomeCtrl', function($scope, sectionFactory, $ionicSlideBoxDelegate, DataService) {
 
-  DataService.get('/banners', null).success(function(result) {
+  DataService.get('/banners', null).then(function(result) {
     // console.log(result.data.data);
     $scope.banners = result.data.data;
+    
+    $ionicSlideBoxDelegate.$getByHandle('slideimgs').update();
+    $ionicSlideBoxDelegate.$getByHandle('slideimgs').loop(true);
+    // $ionicSlideBoxDelegate.$getByHandle('slideimgs').start();
+    //
+    // $ionicSlideBoxDelegate.$getByHandle('slideimgs').next();
+    
+  }, function(error) {
+    console.log(error)
   });
-
-  $ionicSlideBoxDelegate.$getByHandle('slideimgs').update();
-  $ionicSlideBoxDelegate.$getByHandle('slideimgs').loop(true);
-  $ionicSlideBoxDelegate.$getByHandle('slideimgs').start();
-
-  $ionicSlideBoxDelegate.$getByHandle('slideimgs').next();
 
   $scope.sections = sectionFactory.all();
 })
@@ -117,14 +120,34 @@ angular.module('xiaoyoutong.controllers', [])
   };
 })
 
+// 俱乐部章程
+.controller('ClubDetailBylawsCtrl', function($scope, DataService, $ionicLoading, $stateParams) {
+  console.log($stateParams);
+  
+  $ionicLoading.show();
+  $scope.club = DataService.get('/clubs/' + parseInt($stateParams.id) + '/bylaw', null).then(function(response){
+    $scope.club = response.data.data;
+    $ionicLoading.hide();
+  },function(err){
+    $ionicLoading.hide();
+  });
+})
+
 // 活动列表页
-.controller('EventsCtrl', function($scope, eventsService) {
-  $scope.events = eventsService.getEvents();
+.controller('EventsCtrl', function($scope, DataService, $ionicLoading) {
+  $scope.events = DataService.get('', null).then(function() {}, function() {});
 })
 
 // 活动详情
-.controller('EventDetailCtrl', function($scope, $stateParams, eventsService) {
-  $scope.event = eventsService.getEvent(parseInt($stateParams.id));
+.controller('EventDetailCtrl', function($scope, $stateParams, DataService, $ionicLoading) {
+  $ionicLoading.show()
+  $scope.event = DataService.get('/events/' + parseInt($stateParams.id), null).then(function(response){
+    $scope.event = response.data.data;
+    $ionicLoading.hide();
+  },function(err) {
+    console.log(err);
+    $ionicLoading.hide();
+  });
 
   // 报名参加
   $scope.doAttend = function(id) {

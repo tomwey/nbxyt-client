@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('xiaoyoutong', ['ionic', 'xiaoyoutong.controllers', 'xiaoyoutong.services', 'ui.router', 'base64'])
+angular.module('xiaoyoutong', ['ionic', 'xiaoyoutong.controllers', 'xiaoyoutong.services', 'ui.router', 'base64', 'ionicLazyLoad'])
 
 .config(['$ionicConfigProvider', function($ionicConfigProvider){
   $ionicConfigProvider.tabs.position('bottom');
@@ -175,7 +175,7 @@ angular.module('xiaoyoutong', ['ionic', 'xiaoyoutong.controllers', 'xiaoyoutong.
     views: {
       'tab-home': {
         templateUrl: 'templates/bylaws.html',
-        controller: 'ClubDetailCtrl',
+        controller: 'ClubDetailBylawsCtrl',
       }
     }
   })
@@ -270,7 +270,7 @@ angular.module('xiaoyoutong', ['ionic', 'xiaoyoutong.controllers', 'xiaoyoutong.
 
   // 捐赠文章详情
   .state('tab.article-detail', {
-    url: '/donate/articles/:id',
+    url: '/articles/:id',
     views: {
       'tab-home': {
         templateUrl: 'templates/article-detail.html',
