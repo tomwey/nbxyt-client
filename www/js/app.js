@@ -354,6 +354,37 @@ angular.module('xiaoyoutong', ['ionic', 'xiaoyoutong.controllers', 'xiaoyoutong.
       }
     }
   })
+  
+  // 加入的校友会
+  .state('tab.user-organizations', {
+    url: '/user-organizations',
+    views: {
+      'tab-setting': {
+        templateUrl: 'templates/organizations.html',
+        controller: 'UserCtrl',
+      }
+    }
+  })
+  // 加入的俱乐部
+  .state('tab.user-clubs', {
+    url: '/user-clubs',
+    views: {
+      'tab-setting': {
+        templateUrl: 'templates/clubs.html',
+        controller: 'UserCtrl',
+      }
+    }
+  })
+  // 参加的活动
+  .state('tab.user-events', {
+    url: '/user-events',
+    views: {
+      'tab-setting': {
+        templateUrl: 'templates/events.html',
+        controller: 'UserCtrl',
+      }
+    }
+  })
 
   // 我的订单
   .state('tab.orders', {

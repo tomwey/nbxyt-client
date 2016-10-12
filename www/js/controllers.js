@@ -406,9 +406,15 @@ angular.module('xiaoyoutong.controllers', [])
   };
 })
 
-// 个人资料
-.controller('UserCtrl', function($scope) {
-  $scope.user = {  };
+// 我的
+.controller('UserCtrl', function($scope, DataService, $ionicLoading) {
+  DataService.get('/user/organizations', { token: '' }).then(function(response){
+    $scope.organizations = response.data.data;
+  }, function(error) {
+    
+  }).finally(function(){
+    $ionicLoading.hide();
+  })
 })
 
 // 登录
