@@ -8,7 +8,7 @@
   <ion-nav-title>{{articleInfo.node.name}}</ion-nav-title>
 	<ion-content>
 		<ion-list>
-			<ion-item class="item-remove-animate item item-thumbnail-left item-icon-right item-text-wrap" ng-repeat="article in articleInfo.data"
+			<ion-item class="item-remove-animate item item-thumbnail-left item-icon-right item-text-wrap" collection-repeat="article in articleInfo.data"
 			href="#/tab/articles/{{article.id}}">
 				<img ng-src="{{article.image}}">
 				<h2>{{article.title}}</h2>
@@ -16,6 +16,6 @@
 				<i class="icon ion-chevron-right icon-accessory"></i>
 			</ion-item>
 		</ion-list>
-    <!-- <ion-infinite-scroll ng-if="!noMoreItemsAvailable" on-infinite="loadNextPage()" distance="10%"></ion-infinite-scroll> -->
+    <ion-infinite-scroll ng-if="!noMoreItemsAvailable" on-infinite="loadMore()" distance="10%"></ion-infinite-scroll>
   </ion-content>
 </ion-view>

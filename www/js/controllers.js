@@ -237,47 +237,49 @@ angular.module('xiaoyoutong.controllers', [])
 // 捐赠文章列表
 .controller('ArticlesCtrl', function($scope, $stateParams, DataService, $ionicLoading) {
   
+  var _this = this;
+  
   $scope.currentPage = 1;
   $scope.pageSize    = 8;
   $scope.noMoreItemsAvailable = true;
+  $scope.totalPage   = 1;
   
-  function loadData(page, size) {
+  this.loadData = function(page, size) {
+    console.log('loading page: ' + page);
     $ionicLoading.show();
     DataService.get('/articles/type' + parseInt($stateParams.id), { page: page, size: size }).then(function(result) {
-
-      $scope.articleInfo = result.data.data;
+      var articleInfo = result.data.data;
       
-      // 检查是否有更多数据
-      if (result.data.data.data.count < 10) {
-        $scope.noMoreItemsAvailable = true;
+      if (page == 1) {
+        $scope.articleInfo = articleInfo;
+        $scope.totalPage   = ( articleInfo.total + $scope.pageSize - 1 ) / $scope.pageSize;
       } else {
-        $scope.noMoreItemsAvailable = false;
+        var data = $scope.articleInfo.data;
+        $scope.articleInfo.data = data.concat(articleInfo.data);
       }
       
-      console.log($scope.articleInfo);
-      
-      $scope.$broadcast('scroll.infiniteScrollComplete');
+      // 检查是否有更多数据
+      if (page < $scope.totalPage) {
+        $scope.noMoreItemsAvailable = false;
+      } else {
+        $scope.noMoreItemsAvailable = true;
+      }
       
     }, function(err) {
       console.log(err);
     }).finally(function(){
       $ionicLoading.hide();
-      // $scope.$broadcast('scroll.infiniteScrollComplete');
+      $scope.$broadcast('scroll.infiniteScrollComplete');
     });
   };
   
-  loadData($scope.currentPage, $scope.pageSize);
+  this.loadData($scope.currentPage, $scope.pageSize);
   
-  function loadNextPage() {
-    
-    $scope.currentPage ++;
-    
-    loadData($scope.currentPage, $scope.pageSize);
-  };
-  
-  $scope.loadNextPage = function() {
-    console.log($scope.currentPage);
-    loadNextPage();
+  $scope.loadMore = function() {
+    if ($scope.currentPage < $scope.totalPage) {
+      $scope.currentPage ++;
+      _this.loadData($scope.currentPage, $scope.pageSize);
+    }
   };
 })
 
