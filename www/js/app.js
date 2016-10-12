@@ -182,7 +182,7 @@ angular.module('xiaoyoutong', ['ionic', 'xiaoyoutong.controllers', 'xiaoyoutong.
 
   // 活动列表
   .state('tab.events', {
-    url: '/events',
+    url: '/events/:owner_type-:owner_id',
     views: {
       'tab-home': {
         templateUrl: 'templates/events.html',

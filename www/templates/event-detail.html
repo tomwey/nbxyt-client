@@ -12,18 +12,18 @@
       </div>
       <div class="item item-text-wrap">
         <h2>{{event.title}}</h2>
-        <p>活动开始时间：{{event.started_at}}</p>
-        <p>活动结束时间：{{event.ended_at}}</p>
-        <p>参加人数：{{event.joined_count}} / {{event.needed_count}}</p>
+        <p>开始时间：{{event.started_at}}</p>
+        <p>结束时间：{{event.ended_at}}</p>
+        <p ng-if="event.eventable_type != 'Organization'">参加人数：{{event.joined_count}} / {{event.needed_count}}</p>
       </div>
     </div>
     <div class="card">
-      <div class="item item-divider"><h2>活动简介</h2></div>
-      <div class="item item-text-wrap item-image padding" ng-bind-html="event.body">
+      <div class="item item-divider"><h2>介绍</h2></div>
+      <div class="item item-text-wrap body-html" ng-bind-html="event.body">
       </div>
     </div>
   </ion-content>
-    <ion-footer-bar class="bar-assertive">
+    <ion-footer-bar class="bar-assertive" ng-show="event.eventable_type != 'Organization'">
       <div class="title" style="text-align: center; margin: 0 -10px; cursor: pointer;" ng-click="doAttend(event.id);">
           报名参加
       </div>

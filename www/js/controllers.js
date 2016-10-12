@@ -56,11 +56,13 @@ angular.module('xiaoyoutong.controllers', [])
   DataService.get('/organizations/' + $stateParams.id, null).then(function(result) {
     $scope.organization = result.data.data;
 
-    $scope.isShowEvents = $scope.organization.latest_events.count > 0;
-    $scope.isShowUsers = $scope.organization.latest_users.count > 0;
+    $scope.isShowEvents = $scope.organization.latest_events.length > 0;
+    $scope.isShowUsers = $scope.organization.latest_users.length > 0;
 
-    $scope.isShowLoadMoreEvents = $scope.organization.latest_events.count >= 5;
-    $scope.isShowLoadMoreUsers = $scope.organization.latest_users.count >= 5;
+    $scope.isShowLoadMoreEvents = $scope.organization.latest_events.length >= 5;
+    $scope.isShowLoadMoreUsers = $scope.organization.latest_users.length >= 5;
+
+    // console.log($scope.organization.latest_events);
 
     $ionicLoading.hide();
 
@@ -146,8 +148,23 @@ angular.module('xiaoyoutong.controllers', [])
 })
 
 // 活动列表页
-.controller('EventsCtrl', function($scope, DataService, $ionicLoading) {
-  $scope.events = DataService.get('', null).then(function() {}, function() {});
+.controller('EventsCtrl', function($scope, DataService, $ionicLoading, $stateParams) {
+  console.log($stateParams);
+
+  $ionicLoading.show();
+
+  var params = { 
+    owner_type: $stateParams.owner_type,
+    owner_id:   $stateParams.owner_id,
+  };
+  DataService.get('/events', params).then(function(result) {
+    $scope.events = result.data.data;
+  }, function(error) {
+    console.log(error);
+
+  }).finally(function(){
+    $ionicLoading.hide();
+  });
 })
 
 // 活动详情
@@ -313,7 +330,7 @@ angular.module('xiaoyoutong.controllers', [])
   
   $ionicLoading.show();
   
-  $scope.page = DataService.get('/pages/donate-help', null).then(function(response){
+  $scope.page = DataService.get('/pages/donate_help', null).then(function(response){
     $scope.page = response.data.data;
   },function(err) {
     console.log(err);

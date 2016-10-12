@@ -9,6 +9,17 @@
   max-width: 100%;
 }
 
+.body-html {
+	text-align: left;
+	padding: 10px;
+	font-size: 14px;
+}
+
+.body-html img {
+	max-width: 100%;
+	text-align: center;
+}
+
 .product-price {
 	font-size: 22px;
 	color: red;
