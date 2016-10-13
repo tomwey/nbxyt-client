@@ -111,8 +111,14 @@ angular.module('xiaoyoutong.controllers', [])
 })
 
 // 同学录页面
-.controller('AlumnusCtrl', function($scope, alumnusService) {
-  $scope.alumnus = alumnusService.getAlumnus();
+.controller('AlumnusCtrl', function($scope, DataService) {
+  $scope.alumnus = DataService.get('', null).then(function(resp) {
+
+  }, function(err) {
+
+  }).finally(function(){
+    
+  });
 })
 
 // 产品智联页面
