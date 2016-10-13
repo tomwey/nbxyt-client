@@ -14,9 +14,9 @@ angular.module('xiaoyoutong', ['ionic', 'xiaoyoutong.controllers', 'xiaoyoutong.
   $ionicConfigProvider.backButton.text('');
 }])
 
-.run(function($ionicPlatform, $rootScope) {
-  $rootScope.$on( "$routeChangeStart", function(event, next, current) {
-    console.log('event: ' + event + 'next: ' + next + 'current: ' + current);
+.run(function($ionicPlatform, $rootScope, $localStorage, $ionicModal) {
+  // $rootScope.$on( "$routeChangeStart", function(event, next, current) {
+    // console.log('event: ' + event + 'next: ' + next + 'current: ' + current);
   // if ( $rootScope.loggedUser == null ) {
     // no logged user, we should be going to #login
     // if ( next.templateUrl == "partials/login.html" ) {
@@ -26,6 +26,32 @@ angular.module('xiaoyoutong', ['ionic', 'xiaoyoutong.controllers', 'xiaoyoutong.
     //   $location.path( "/login" );
     // }
   // }
+  // });
+
+  // Create the login modal that we will use later
+  $ionicModal.fromTemplateUrl('templates/login.html', {
+    scope: $rootScope
+  }).then(function(modal) {
+    $rootScope.modal = modal;
+  });
+
+  $rootScope.closeLogin = function () {
+    $rootScope.modal.hide();
+  }
+
+  $rootScope.$on('$stateChangeStart', function(event, next){
+  //print here
+    console.log('event: ' + event + ', next: ' + next.name);
+    var currentUser = $localStorage.getObject('user', null);
+    // console.log(currentUser);
+    if ( currentUser == null ) {
+      if ( next.name == 'tab.profile' ) {
+        $rootScope.modal.show();
+        event.presentDefault();
+      } else {
+
+      }
+    }
   });
   
   $ionicPlatform.ready(function() {
@@ -46,6 +72,16 @@ angular.module('xiaoyoutong', ['ionic', 'xiaoyoutong.controllers', 'xiaoyoutong.
     }
        
   });
+
+  $rootScope.$on('$stateChangeStart', function(){
+    console.log('Loading ...');
+    $rootScope.$broadcast('loading:show');
+  });
+
+  $rootScope.$on('$stateChangeSuccess', function() {
+    console.log('Done');
+    $rootScope.$broadcast('loading:hide');
+  })
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -60,7 +96,8 @@ angular.module('xiaoyoutong', ['ionic', 'xiaoyoutong.controllers', 'xiaoyoutong.
   .state('tab', {
     url: '/tab',
     abstract: true,
-    templateUrl: 'templates/tabs.html'
+    templateUrl: 'templates/tabs.html',
+    controller: 'AppCtrl',
   })
 
   // Each tab has its own nav history stack:
