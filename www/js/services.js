@@ -73,13 +73,21 @@ angular.module('xiaoyoutong.services', [])
   };
 })
 
-.service('UserService', function() {
+.service('UserService', function($localStorage) {
+  var defaultUser = {
+    uid: '10001',
+    token: '',
+    nickname: '',
+    mobile: '180****3687',
+    avatar: '',
+    realname: 'tomwey',
+    stu_no: '2005010210',
+    faculty: '核技术与自动化工程学院',
+    specialty: '工业工程',
+    graduation: '2005级'
+  };
   this.currentUser = function() {
-    return {
-      token: '5caeccebb0134f198ae137c2f3f96ad7',
-      nickname: 'tomwey',
-      mobile: '18048553678'
-    };
+    return $localStorage.getObject('user', JSON.stringify(defaultUser));
   };
 })
 

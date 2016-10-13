@@ -521,14 +521,51 @@ angular.module('xiaoyoutong.controllers', [])
 })
 
 // 我的
-.controller('UserCtrl', function($scope, DataService, $ionicLoading) {
-  DataService.get('/user/organizations', { token: '' }).then(function(response){
-    $scope.organizations = response.data.data;
-  }, function(error) {
+.controller('UserCtrl', function($scope, $state, DataService, $ionicLoading, UserService) {
+  $scope.user = UserService.currentUser();
+  // DataService.get('/user/organizations', { token: '' }).then(function(response){
+  //   $scope.organizations = response.data.data;
+  // }, function(error) {
     
-  }).finally(function(){
-    $ionicLoading.hide();
-  })
+  // }).finally(function(){
+  //   $ionicLoading.hide();
+  // })
+  console.log($scope.user);
+
+  $scope.updateNickname = function() {
+    $state.go('tab.profile-update-nickname');
+  };
+
+  $scope.changeMobile = function() {
+    $state.go('tab.profile-update-mobile');
+  };
+
+  $scope.updatePassword = function() {
+    $state.go('tab.profile-update-password');
+  };
+
+})
+
+.controller('UpdateProfileCtrl', function($scope, DataService, $ionicLoading, UserService) {
+  var currentUser = UserService.currentUser();
+
+  $scope.user = { nickname: currentUser.nickname, 
+                  mobile: currentUser.mobile,
+                  code: '',
+                  new_mobile: '',
+                  password: '',
+                };
+  $scope.doUpdateNickname = function() {
+
+  };
+
+  $scope.doUpdateMobile   = function() {
+
+  };
+
+  $scope.doUpdatePassword = function() {
+
+  };
 })
 
 // 我加入的校友会

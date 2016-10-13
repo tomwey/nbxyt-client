@@ -29,30 +29,30 @@ angular.module('xiaoyoutong', ['ionic', 'xiaoyoutong.controllers', 'xiaoyoutong.
   // });
 
   // Create the login modal that we will use later
-  $ionicModal.fromTemplateUrl('templates/login.html', {
-    scope: $rootScope
-  }).then(function(modal) {
-    $rootScope.modal = modal;
-  });
+  // $ionicModal.fromTemplateUrl('templates/login.html', {
+  //   scope: $rootScope
+  // }).then(function(modal) {
+  //   $rootScope.modal = modal;
+  // });
 
-  $rootScope.closeLogin = function () {
-    $rootScope.modal.hide();
-  }
+  // $rootScope.closeLogin = function () {
+  //   $rootScope.modal.hide();
+  // }
 
-  $rootScope.$on('$stateChangeStart', function(event, next){
-  //print here
-    console.log('event: ' + event + ', next: ' + next.name);
-    var currentUser = $localStorage.getObject('user', null);
-    // console.log(currentUser);
-    if ( currentUser == null ) {
-      if ( next.name == 'tab.profile' ) {
-        $rootScope.modal.show();
-        event.presentDefault();
-      } else {
+  // $rootScope.$on('$stateChangeStart', function(event, next){
+  // //print here
+  //   console.log('event: ' + event + ', next: ' + next.name);
+  //   var currentUser = $localStorage.getObject('user', null);
+  //   // console.log(currentUser);
+  //   if ( currentUser == null ) {
+  //     if ( next.name == 'tab.profile' ) {
+  //       $rootScope.modal.show();
+  //       event.presentDefault();
+  //     } else {
 
-      }
-    }
-  });
+  //     }
+  //   }
+  // });
   
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -408,6 +408,42 @@ angular.module('xiaoyoutong', ['ionic', 'xiaoyoutong.controllers', 'xiaoyoutong.
       }
     }
   })
+
+  // 修改昵称
+  .state('tab.profile-update-nickname', {
+    url: '/update-nickname',
+    views: {
+      'tab-setting': {
+        templateUrl: 'templates/update-nickname.html',
+        controller: 'UpdateProfileCtrl'
+      }
+    }
+  })
+  
+  // 修改手机号
+  .state('tab.profile-update-mobile', {
+    url: '/update-mobile',
+    views: {
+      'tab-setting': {
+        templateUrl: 'templates/update-mobile.html',
+        controller: 'UpdateProfileCtrl',
+      }
+    }
+  })
+
+  // 修改密码
+  .state('tab.profile-update-password', {
+    url: '/update-password',
+    views: {
+      'tab-setting': {
+        templateUrl: 'templates/update-password.html',
+        controller: 'UpdateProfileCtrl',
+      }
+    }
+  })
+
+  // 忘记密码
+  
   
   // 加入的校友会
   .state('tab.user-organizations', {
