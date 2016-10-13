@@ -5,6 +5,29 @@ angular.module('xiaoyoutong.services', [])
     return $base64.encode('efd12eada3aa4976994546572c235cd8' + timestamp);
   };
 })
+
+.service('PopupService', function($ionicPopup) {
+  this.say = function(title, message) {
+    $ionicPopup.alert({
+      title: title,
+      template: message
+    });
+  };
+  
+  this.ask = function(title, message, callback) {
+    $ionicPopup.confirm({
+      title: title,
+      template: message
+    }).then(function(res){
+      if (res) {
+        if (callback != undefined) {
+          callback();
+        }
+      }
+    });
+  };
+})
+
 .service('DataService', function(apiHost, $http, AccessKeyService, $httpParamSerializer) {
 
   var _this = this;

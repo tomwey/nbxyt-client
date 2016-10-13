@@ -50,7 +50,7 @@ angular.module('xiaoyoutong.controllers', [])
 })
 
 // 校友组织详情
-.controller('OrganizationDetailCtrl', function($scope, $stateParams, DataService, $ionicLoading) {
+.controller('OrganizationDetailCtrl', function($scope, $stateParams, DataService, $ionicLoading, $ionicPopup, UserService, PopupService, $state, $rootScope) {
 
   $ionicLoading.show();
   DataService.get('/organizations/' + $stateParams.id, null).then(function(result) {
@@ -70,6 +70,44 @@ angular.module('xiaoyoutong.controllers', [])
     $ionicLoading.hide();
   });
 
+  function doRemove() {
+    $ionicLoading.show();
+    DataService.post('/relationships/organization/cancel_join', { token: UserService.currentUser().token, id: $scope.oid }).then(function(resp){
+      if (resp.data.code == 0) {
+        $state.go('tab.user-organizations');
+      } else {
+        PopupService.say('错误提示', resp.data.message);
+      }
+    },function(err) {
+      PopupService.say('错误提示', '服务器出错');
+    }).finally(function() {
+      $ionicLoading.hide();
+    });
+  };
+
+  // 加入组织
+  $scope.doJoinOrganization   = function(id) {
+    $ionicLoading.show();
+    DataService.post('/relationships/organization/join', { token: UserService.currentUser().token, id: id }).then(function(resp){
+      if (resp.data.code == 0) {
+        
+      } else {
+        PopupService.say('错误提示', resp.data.message);
+      }
+    },function(err) {
+      PopupService.say('错误提示', '服务器出错');
+    }).finally(function() {
+      $ionicLoading.hide();
+    });
+  };
+  
+  // 移除组织
+  $scope.doRemoveOrganization = function(id) {
+    // console.log(id);
+    $scope.oid = id;
+    
+    PopupService.ask('从校友会移除', '你确定要从该校友会移除吗？', doRemove);
+  };
 })
 
 // 同学录页面
@@ -112,7 +150,7 @@ angular.module('xiaoyoutong.controllers', [])
 })
 
 // 俱乐部详情页
-.controller('ClubDetailCtrl', function($scope, DataService, $ionicLoading, $stateParams) {
+.controller('ClubDetailCtrl', function($scope, DataService, $ionicLoading, $stateParams, PopupService, UserService, $state) {
   $ionicLoading.show();
   $scope.club = DataService.get('/clubs/' + parseInt($stateParams.id), null).then(function(response){
     $scope.club = response.data.data;
@@ -130,7 +168,40 @@ angular.module('xiaoyoutong.controllers', [])
 
   // 加入俱乐部
   $scope.doJoinClub = function(id) {
-    alert(id);
+    $ionicLoading.show();
+    DataService.post('/relationships/club/join', { token: UserService.currentUser().token, id: id }).then(function(resp){
+      if (resp.data.code == 0) {
+        PopupService.say('成功', '加入成功');
+      } else {
+        PopupService.say('错误提示', resp.data.message);
+      }
+    },function(err) {
+      PopupService.say('错误提示', '服务器出错');
+    }).finally(function() {
+      $ionicLoading.hide();
+    });
+  };
+  
+  function doRemove() {
+    $ionicLoading.show();
+    DataService.post('/relationships/club/cancel_join', { token: UserService.currentUser().token, id: $scope.oid }).then(function(resp){
+      if (resp.data.code == 0) {
+        $state.go('tab.user-clubs');
+      } else {
+        PopupService.say('错误提示', resp.data.message);
+      }
+    },function(err) {
+      PopupService.say('错误提示', '服务器出错');
+    }).finally(function() {
+      $ionicLoading.hide();
+    });
+  };
+
+  $scope.doRemoveClub = function(id) {
+    // console.log(id);
+    $scope.oid = id;
+    
+    PopupService.ask('从俱乐部移除', '你确定要从该俱乐部移除吗？', doRemove);
   };
 })
 
@@ -168,7 +239,7 @@ angular.module('xiaoyoutong.controllers', [])
 })
 
 // 活动详情
-.controller('EventDetailCtrl', function($scope, $stateParams, DataService, $ionicLoading) {
+.controller('EventDetailCtrl', function($scope, $stateParams, DataService, $ionicLoading, PopupService, UserService, $state) {
   $ionicLoading.show()
   $scope.event = DataService.get('/events/' + parseInt($stateParams.id), null).then(function(response){
     $scope.event = response.data.data;
@@ -180,7 +251,41 @@ angular.module('xiaoyoutong.controllers', [])
 
   // 报名参加
   $scope.doAttend = function(id) {
-
+    $ionicLoading.show();
+    DataService.post('/attends', { token: UserService.currentUser().token, event_id: id }).then(function(resp){
+      if (resp.data.code == 0) {
+        $scope.hasAttended = true;
+      } else {
+        PopupService.say('错误提示', resp.data.message);
+      }
+    },function(err) {
+      PopupService.say('错误提示', '服务器出错');
+    }).finally(function() {
+      $ionicLoading.hide();
+    });
+  };
+  
+  function doRemove() {
+    $ionicLoading.show();
+    DataService.post('/attends/delete', { token: UserService.currentUser().token, event_id: $scope.oid }).then(function(resp){
+      if (resp.data.code == 0) {
+        $state.go('tab.user-events');
+      } else {
+        PopupService.say('错误提示', resp.data.message);
+      }
+    },function(err) {
+      PopupService.say('错误提示', '服务器出错');
+    }).finally(function() {
+      $ionicLoading.hide();
+    });
+  };
+  
+  // 取消报名
+  $scope.cancelAttend = function(id) {
+    // console.log(id);
+    $scope.oid = id;
+    
+    PopupService.ask('取消报名', '你确定要取消参加该活动吗？', doRemove);
   };
 })
 
@@ -420,41 +525,66 @@ angular.module('xiaoyoutong.controllers', [])
 // 我加入的校友会
 .controller('UserOrganizationsCtrl', function($scope, DataService, $ionicLoading, UserService) {
   
-  $ionicLoading.show();
-  
-  DataService.get('/user/organizations', { token: UserService.currentUser().token }).then(function(resp) {
-    $scope.organizations = resp.data.data;
-  }, function(err) {
-    console.log(err);
-  }).finally(function() {
-    $ionicLoading.hide();
+  $scope.$on('$ionicView.beforeEnter', function() {
+    // console.log('123321');
+    loadData();
   });
+  
+  function loadData() {
+    $ionicLoading.show();
+  
+    DataService.get('/user/organizations', { token: UserService.currentUser().token }).then(function(resp) {
+      $scope.organizations = resp.data.data;
+    }, function(err) {
+      console.log(err);
+    }).finally(function() {
+      $ionicLoading.hide();
+    });
+  }
+  
+  // loadData();
+  
 })
 // 我加入的俱乐部
 .controller('UserClubsCtrl', function($scope, DataService, $ionicLoading, UserService) {
   
-  $ionicLoading.show();
-  
-  DataService.get('/user/clubs', { token: UserService.currentUser().token }).then(function(resp) {
-    $scope.clubs = resp.data.data;
-  }, function(err) {
-    console.log(err);
-  }).finally(function() {
-    $ionicLoading.hide();
+  $scope.$on('$ionicView.beforeEnter', function() {
+    // console.log('123321');
+    loadData();
   });
+  
+  function loadData() {
+    $ionicLoading.show();
+    
+    DataService.get('/user/clubs', { token: UserService.currentUser().token }).then(function(resp) {
+      $scope.clubs = resp.data.data;
+    }, function(err) {
+      console.log(err);
+    }).finally(function() {
+      $ionicLoading.hide();
+    });
+  }
 })
 // 我参加的活动
 .controller('UserEventsCtrl', function($scope, DataService, $ionicLoading, UserService) {
   
-  $ionicLoading.show();
-  
-  DataService.get('/user/events', { token: UserService.currentUser().token }).then(function(resp) {
-    $scope.events = resp.data.data;
-  }, function(err) {
-    console.log(err);
-  }).finally(function() {
-    $ionicLoading.hide();
+  $scope.$on('$ionicView.beforeEnter', function() {
+    // console.log('123321');
+    loadData();
   });
+  
+  function loadData() {
+    $ionicLoading.show();
+  
+    DataService.get('/user/events', { token: UserService.currentUser().token }).then(function(resp) {
+      $scope.events = resp.data.data;
+    }, function(err) {
+      console.log(err);
+    }).finally(function() {
+      $ionicLoading.hide();
+    });
+  }
+  
 })
 
 // 意见反馈
