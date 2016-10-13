@@ -14,10 +14,26 @@ angular.module('xiaoyoutong', ['ionic', 'xiaoyoutong.controllers', 'xiaoyoutong.
   $ionicConfigProvider.backButton.text('');
 }])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $rootScope) {
+  $rootScope.$on( "$routeChangeStart", function(event, next, current) {
+    console.log('event: ' + event + 'next: ' + next + 'current: ' + current);
+  // if ( $rootScope.loggedUser == null ) {
+    // no logged user, we should be going to #login
+    // if ( next.templateUrl == "partials/login.html" ) {
+    //   // already going to #login, no redirect needed
+    // } else {
+    //   // not going to #login, we should redirect now
+    //   $location.path( "/login" );
+    // }
+  // }
+  });
+  
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
+    window.onerror = function(message, url, line, col, error) {
+      console.log('url: ' + url + ', line: ' + line + 'message: ' + message + ', error: ' + error);
+    };
     
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -28,6 +44,7 @@ angular.module('xiaoyoutong', ['ionic', 'xiaoyoutong.controllers', 'xiaoyoutong.
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+       
   });
 })
 
@@ -360,28 +377,63 @@ angular.module('xiaoyoutong', ['ionic', 'xiaoyoutong.controllers', 'xiaoyoutong.
     url: '/user-organizations',
     views: {
       'tab-setting': {
-        templateUrl: 'templates/organizations.html',
-        controller: 'UserCtrl',
+        templateUrl: 'templates/user-organizations.html',
+        controller: 'UserOrganizationsCtrl',
       }
     }
   })
+  
+  // 校友会详情
+  .state('tab.user-organization-detail', {
+    url: '/user-organizations/:id',
+    views: {
+      'tab-setting': {
+        templateUrl: 'templates/user-organization-detail.html',
+        controller: 'OrganizationDetailCtrl',
+      }
+    }
+  })
+  
   // 加入的俱乐部
   .state('tab.user-clubs', {
     url: '/user-clubs',
     views: {
       'tab-setting': {
-        templateUrl: 'templates/clubs.html',
-        controller: 'UserCtrl',
+        templateUrl: 'templates/user-clubs.html',
+        controller: 'UserClubsCtrl',
       }
     }
   })
+  
+  // 用户俱乐部详情
+  .state('tab.user-club-detail', {
+    url: '/user-clubs/:id',
+    views: {
+      'tab-setting': {
+        templateUrl: 'templates/user-club-detail.html',
+        controller: 'ClubDetailCtrl',
+      }
+    }
+  })
+  
   // 参加的活动
   .state('tab.user-events', {
     url: '/user-events',
     views: {
       'tab-setting': {
-        templateUrl: 'templates/events.html',
-        controller: 'UserCtrl',
+        templateUrl: 'templates/user-events.html',
+        controller: 'UserEventsCtrl',
+      }
+    }
+  })
+  
+  // 活动详情
+  .state('tab.user-event-detail', {
+    url: '/user-events/:id',
+    views: {
+      'tab-setting': {
+        templateUrl: 'templates/user-event-detail.html',
+        controller: 'EventDetailCtrl',
       }
     }
   })

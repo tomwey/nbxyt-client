@@ -417,6 +417,46 @@ angular.module('xiaoyoutong.controllers', [])
   })
 })
 
+// 我加入的校友会
+.controller('UserOrganizationsCtrl', function($scope, DataService, $ionicLoading, UserService) {
+  
+  $ionicLoading.show();
+  
+  DataService.get('/user/organizations', { token: UserService.currentUser().token }).then(function(resp) {
+    $scope.organizations = resp.data.data;
+  }, function(err) {
+    console.log(err);
+  }).finally(function() {
+    $ionicLoading.hide();
+  });
+})
+// 我加入的俱乐部
+.controller('UserClubsCtrl', function($scope, DataService, $ionicLoading, UserService) {
+  
+  $ionicLoading.show();
+  
+  DataService.get('/user/clubs', { token: UserService.currentUser().token }).then(function(resp) {
+    $scope.clubs = resp.data.data;
+  }, function(err) {
+    console.log(err);
+  }).finally(function() {
+    $ionicLoading.hide();
+  });
+})
+// 我参加的活动
+.controller('UserEventsCtrl', function($scope, DataService, $ionicLoading, UserService) {
+  
+  $ionicLoading.show();
+  
+  DataService.get('/user/events', { token: UserService.currentUser().token }).then(function(resp) {
+    $scope.events = resp.data.data;
+  }, function(err) {
+    console.log(err);
+  }).finally(function() {
+    $ionicLoading.hide();
+  });
+})
+
 // 意见反馈
 .controller('FeedbackCtrl', function($scope, DataService, $ionicLoading) {
   $scope.feedback = { content: '', author: '' };
