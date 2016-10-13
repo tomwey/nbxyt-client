@@ -396,14 +396,14 @@ angular.module('xiaoyoutong.controllers', [])
 // 个人中心页面
 .controller('SettingsCtrl', function($scope, $state) {
   $scope.user = {avatar: 'img/ben.png'};
-  $scope.gotoOrders = function(state = '') {
-    if (state.length == 0) {
-      $state.go('tab.orders');
-    } else {
-      $state.go('tab.orders-' + state);
-    }
-    
-  };
+  // $scope.gotoOrders = function(state = '') {
+  //   if (state.length == 0) {
+  //     $state.go('tab.orders');
+  //   } else {
+  //     $state.go('tab.orders-' + state);
+  //   }
+  //
+  // };
 })
 
 // 我的
