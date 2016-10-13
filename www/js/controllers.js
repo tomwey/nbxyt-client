@@ -417,6 +417,41 @@ angular.module('xiaoyoutong.controllers', [])
   })
 })
 
+// 意见反馈
+.controller('FeedbackCtrl', function($scope, DataService, $ionicLoading) {
+  $scope.feedback = { content: '', author: '' };
+  
+  $scope.commitFeedback = function() {
+    if ($scope.feedback.content.trim().length == 0) {
+      alert('反馈内容不能为空');
+      return;
+    }
+    
+    $ionicLoading.show();
+    DataService.post('/feedbacks', $scope.feedback).then(function(response) {
+      $scope.feedback = { content: '', author: '' };
+      alert('提交成功');
+    },function(error) {
+      alert('Oops, 提交失败了，请重试');
+    }).finally(function() {
+      $ionicLoading.hide();
+    });
+  };
+})
+
+// 关于我们
+.controller('AboutusCtrl', function($scope, DataService, $ionicLoading) {
+  $ionicLoading.show();
+  
+  DataService.get('/pages/aboutus', null).then(function(resp) {
+    $scope.page = resp.data.data;
+  }, function(err) {
+    console.log(err);
+  }).finally(function() {
+    $ionicLoading.hide();
+  });
+})
+
 // 登录
 .controller('LoginCtrl', function($scope,usersService) {
   $scope.user = {mobile: '', password: ''};
