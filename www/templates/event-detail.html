@@ -23,9 +23,9 @@
       </div>
     </div>
   </ion-content>
-    <ion-footer-bar class="bar-assertive" ng-show="event.eventable_type != 'Organization'">
+  <ion-footer-bar class="bar-{{ can_attend ? 'assertive' : 'energized' }}" ng-show="!has_attended">
       <div class="title" style="text-align: center; margin: 0 -10px; cursor: pointer;" ng-click="doAttend(event.id);">
-          报名参加
+          {{event.state.label}}
       </div>
   </ion-footer-bar>
 </ion-view>

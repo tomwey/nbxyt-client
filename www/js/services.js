@@ -76,7 +76,7 @@ angular.module('xiaoyoutong.services', [])
 .service('UserService', function($localStorage) {
   var defaultUser = {
     uid: '10001',
-    token: '',
+    token: '5caeccebb0134f198ae137c2f3f96ad7',
     nickname: '',
     mobile: '180****3687',
     avatar: '',
