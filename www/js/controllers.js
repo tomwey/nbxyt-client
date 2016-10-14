@@ -350,6 +350,9 @@ angular.module('xiaoyoutong.controllers', [])
   $scope.company = DataService.get('/bases/' + parseInt($stateParams.id), null).then(function(response) {
     $scope.company = response.data.data;
     $ionicLoading.hide();
+    
+    $scope.isShowEvents = $scope.company.latest_events.length > 0;
+    $scope.isShowLoadMoreEvents = $scope.company.latest_events.length >= 5;
   }, function(err) {
     $ionicLoading.hide();
   });
