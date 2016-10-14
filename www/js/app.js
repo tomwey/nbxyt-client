@@ -29,16 +29,19 @@ angular.module('xiaoyoutong', ['ionic', 'xiaoyoutong.controllers', 'xiaoyoutong.
   // });
 
   // Create the login modal that we will use later
-  // $ionicModal.fromTemplateUrl('templates/login.html', {
-  //   scope: $rootScope
-  // }).then(function(modal) {
-  //   $rootScope.modal = modal;
-  // });
+  $ionicModal.fromTemplateUrl('templates/login.html', {
+    scope: $rootScope
+  }).then(function(modal) {
+    $rootScope.modal = modal;
+  });
 
-  // $rootScope.closeLogin = function () {
-  //   $rootScope.modal.hide();
-  // }
+  $rootScope.closeLogin = function () {
+    $rootScope.modal.hide();
+  }
 
+  $rootScope.login = function() {
+    $rootScope.modal.show();
+  }
   // $rootScope.$on('$stateChangeStart', function(event, next){
   // //print here
   //   console.log('event: ' + event + ', next: ' + next.name);
@@ -237,6 +240,17 @@ angular.module('xiaoyoutong', ['ionic', 'xiaoyoutong.controllers', 'xiaoyoutong.
   // 活动列表
   .state('tab.events', {
     url: '/events/:owner_type-:owner_id',
+    views: {
+      'tab-home': {
+        templateUrl: 'templates/events.html',
+        controller: 'EventsCtrl',
+      }
+    }
+  })
+  
+  // 活动列表2
+  .state('tab.events-organization', {
+    url: '/events/owner-:owner_type',
     views: {
       'tab-home': {
         templateUrl: 'templates/events.html',

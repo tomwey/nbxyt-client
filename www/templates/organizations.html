@@ -1,14 +1,14 @@
 <ion-view view-title="校友组织">
 	<ion-content lazy-scroll>
 		<ion-list>
-			<ion-item class="item-remove-animate item item-thumbnail-left item-icon-right" type="item-text-wrap" href="#/tab/all-organizations">
-				<img ng-src="img/ionic.png">
+			<ion-item class="item-remove-animate item item-thumbnail-left item-icon-right" type="item-text-wrap" href="#/tab/all-organizations" ng-if="organization">
+				<img image-lazy-src="{{organization.image}}">
         		<h2>校友总会</h2>
-        		<p>这是校友总会的简介</p>
-        		<p>成员：{{total_organizations}}</p>
+        		<p>{{organization.intro}}</p>
+        		<p>成员：{{organization.users_count}}</p>
         		<i class="icon ion-chevron-right icon-accessory"></i>
 			</ion-item>
-			<ion-item class="item-remove-animate item item-thumbnail-left item-icon-right item-text-wrap" ng-repeat="organ in organizations" href="#/tab/organizations/{{organ.id}}">
+			<ion-item class="item-remove-animate item item-thumbnail-left item-icon-right item-text-wrap" collection-repeat="organ in organizations" href="#/tab/organizations/{{organ.id}}">
         		<img image-lazy-src="{{organ.image}}">
         		<h2>{{organ.name}}</h2>
         		<p>{{organ.intro}}</p>

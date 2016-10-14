@@ -36,19 +36,41 @@ angular.module('xiaoyoutong.controllers', [])
 })
 
 // 校友总会详情页
-.controller('OrganizationsAllCtrl', function($scope) {
-
+.controller('OrganizationsAllCtrl', function($scope, DataService, $ionicLoading, $ionicSlideBoxDelegate) {
+  
+  $scope.isShowEvents = false;
+  $scope.isShowLoadMoreEvents = false;
+  
+  DataService.get('/organizations/assoc/body', null).then(function(resp) {
+    $scope.organization = resp.data.data;
+    
+    $ionicSlideBoxDelegate.$getByHandle('slideimgs').update();
+    $ionicSlideBoxDelegate.$getByHandle('slideimgs').loop(true);
+    
+    $scope.isShowEvents = $scope.organization.latest_events.length > 0;
+    $scope.isShowLoadMoreEvents = $scope.organization.latest_events.length >= 5;
+    
+  }, function(error) {
+    console.log(error);
+  });
 })
 
 // 校友组织列表
 .controller('OrganizationsCtrl', function($scope, DataService, $ionicLoading) {
 
   $ionicLoading.show();
-  DataService.get('/organizations', null).then(function(result){
-    $scope.organizations = result.data.data;
-    $ionicLoading.hide();
-  },function(error){
-    $ionicLoading.hide();
+  
+  DataService.get('/organizations/assoc', null).then(function(result) {
+    $scope.organization = result.data.data;
+  }, function(error) {
+    console.log(error);
+  }).finally(function() {
+    DataService.get('/organizations', null).then(function(result){
+      $scope.organizations = result.data.data;
+      $ionicLoading.hide();
+    },function(error){
+      $ionicLoading.hide();
+    });
   });
 })
 
@@ -232,11 +254,17 @@ angular.module('xiaoyoutong.controllers', [])
   console.log($stateParams);
 
   $ionicLoading.show();
-
-  var params = { 
-    owner_type: $stateParams.owner_type,
-    owner_id:   $stateParams.owner_id,
-  };
+  
+  var params = {};
+  
+  if ($stateParams.owner_type) {
+    params.owner_type = $stateParams.owner_type;
+  }
+  
+  if ($stateParams.owner_id) {
+    params.owner_id = $stateParams.owner_id;
+  }
+  
   DataService.get('/events', params).then(function(result) {
     $scope.events = result.data.data;
   }, function(error) {
