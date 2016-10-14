@@ -602,8 +602,18 @@ angular.module('xiaoyoutong.controllers', [])
 })
 
 // 个人中心页面
-.controller('SettingsCtrl', function($scope, $state) {
-  $scope.user = {avatar: 'img/ben.png'};
+.controller('SettingsCtrl', function($scope, $state, UserService) {
+  $scope.user = UserService.currentUser();
+  
+  $scope.gotoProfile = function() {
+    var token = UserService.currentUser().token;
+    
+    if (!token) {
+      $rootScope.modal.show();
+    } else {
+      $state.go('tab.profile');
+    }
+  };
   // $scope.gotoOrders = function(state = '') {
   //   if (state.length == 0) {
   //     $state.go('tab.orders');

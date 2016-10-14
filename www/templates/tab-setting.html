@@ -1,11 +1,11 @@
 <ion-view view-title="我的">
   <ion-content>
     <div class="list">
-    	<ion-item class="item item-icon-right item-avatar" ng-click="login();">
+    	<ion-item class="item item-icon-right item-avatar" ng-click="gotoProfile();">
     		<img ng-src="{{user.avatar}}" alt="{{user.nickname}}">
     		<div class="row">
     			<div class="col col-center">
-    				立即登录
+    				{{user.nickname || user.mobile}}
     			</div>
     		</div>
     		<i class="icon ion-chevron-right icon-accessory"></i>
